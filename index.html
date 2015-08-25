@@ -3,21 +3,68 @@ layout: default
 ---
 
 <div class="home">
+<p class="why">We are a group of technologists and activists committed to the public interest.
+Currently, our efforts are focused on producing Ombuds, a system for 
+recording statments permanently and publicly on the Internet.</pre>
+</p>
 
-  <h1 class="page-heading">Announcements</h1>
+<div class="face-carousel">
+    <div class="person">
+        <img class="default" src="http://soapboxsys.github.io/res/nick.png" />
+        <img class="hidden" src="http://soapboxsys.github.io/res/blah.png" />
+        <p class="title">Managing Partner</p>
+        <p class="name">Nick Skelsey</p>
+    </div>
+    <div class="person">
+        <img class="default" src="http://soapboxsys.github.io/res/alex.png" />
+        <img class="hidden" src="" />
+        <p class="title">Mobile Lead</p>
+        <p class="name">Alex Kuck</p>
+    </div>
+    <div class="person">
+        <img class="default" src="http://soapboxsys.github.io/res/you.png" />
+        <img class="hidden" src="" />
+        <p class="title">Partner</p>
+        <p class="name">You???</p>
+    </div>
 
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+</div>
 
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
 
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+<div class="post-holder">
+    <div class="announce">
+        <h1 class="page-heading">Announcements</h1>
+        <ul class="post-list">
+            {% for post in site.posts %}
+            {% if post.category == "announce" %}
+            <li>
+            <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+
+            <h2>
+                <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+            </h2>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="blog">
+        <h1 class="page-heading">In the News</h1>
+        <ul class="post-list">
+            {% for post in site.posts %}
+            {% if post.category == "blog" %}
+            <li>
+            <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+            <h2>
+                <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+            </h2>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
 
 </div>

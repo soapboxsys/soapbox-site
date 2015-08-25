@@ -1,0 +1,7 @@
+---
+layout: post
+title: "We Got Funding"
+date: 2015-08-25 17:00:000
+category: announce
+---
+We are pleased to announce blah and blah.
