@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Soapbox Systems</title>
+    <description>The truth never damages a cause that is just. 
+</description>
+    <link>https://soapbox.systems/</link>
+    <atom:link href="https://soapbox.systems/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Wed, 26 Aug 2015 09:45:16 -0400</pubDate>
+    <lastBuildDate>Wed, 26 Aug 2015 09:45:16 -0400</lastBuildDate>
+    <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Talking with Lib Tech</title>
+        <description>&lt;p&gt;Yesterday I emailed Liberation tech, and all I got was this blog post.&lt;/p&gt;
+
+</description>
+        <pubDate>Wed, 26 Aug 2015 17:00:00 -0400</pubDate>
+        <link>https://soapbox.systems/blog/2015/08/26/lib-tech.html</link>
+        <guid isPermaLink="true">https://soapbox.systems/blog/2015/08/26/lib-tech.html</guid>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>We Got Funding</title>
+        <description>&lt;p&gt;We are pleased to announce blah and blah.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 25 Aug 2015 17:00:00 -0400</pubDate>
+        <link>https://soapbox.systems/announce/2015/08/25/funded.html</link>
+        <guid isPermaLink="true">https://soapbox.systems/announce/2015/08/25/funded.html</guid>
+        
+        
+        <category>announce</category>
+        
+      </item>
+    
+      <item>
+        <title>Hello, World!</title>
+        <description>&lt;p&gt;This website will serve as a place for collecting tidbits about our work across the web. Look to this site in times of leisure or information collection. Soapbox Systems was founded in September of 2014 with the explicit goal of creating open source software for the public good. Hopefully, our work demonstrates that.&lt;/p&gt;
+
+&lt;p&gt;If anybody ever asks, we started out at &lt;a href=&quot;http://hackcville.com&quot;&gt;HackCville&lt;/a&gt; in Charlottesville Virginia. &lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/res/incorp.png&quot; alt=&quot;articles of incorp&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sat, 01 Aug 2015 12:00:00 -0400</pubDate>
+        <link>https://soapbox.systems/announce/2015/08/01/hello-world.html</link>
+        <guid isPermaLink="true">https://soapbox.systems/announce/2015/08/01/hello-world.html</guid>
+        
+        
+        <category>announce</category>
+        
+      </item>
+    
+  </channel>
+</rss>
