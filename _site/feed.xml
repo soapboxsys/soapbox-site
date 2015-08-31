@@ -6,18 +6,19 @@
 </description>
     <link>https://soapbox.systems/</link>
     <atom:link href="https://soapbox.systems/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 26 Aug 2015 09:45:16 -0400</pubDate>
-    <lastBuildDate>Wed, 26 Aug 2015 09:45:16 -0400</lastBuildDate>
+    <pubDate>Mon, 31 Aug 2015 10:53:23 -0400</pubDate>
+    <lastBuildDate>Mon, 31 Aug 2015 10:53:23 -0400</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
-        <title>Talking with Lib Tech</title>
-        <description>&lt;p&gt;Yesterday I emailed Liberation tech, and all I got was this blog post.&lt;/p&gt;
+        <title>Some Press in Britain</title>
+        <description>&lt;p&gt;Alex and I were interviewed by &lt;a href=&quot;https://twitter.com/ajreid?lang=en&quot;&gt;Alistair Reid&lt;/a&gt;, a journalist at &lt;a href=&quot;https://en.wikipedia.org/wiki/Journalism.co.uk&quot;&gt;Journalism.co.uk&lt;/a&gt;.
+It was an interesting conversation. Go check out the resulting &lt;a href=&quot;https://www.journalism.co.uk/news/ombuds-using-bitcoin-to-make-online-messages-immutable-/s2/a566167/&quot;&gt;story&lt;/a&gt;.&lt;/p&gt;
 
 </description>
         <pubDate>Wed, 26 Aug 2015 17:00:00 -0400</pubDate>
-        <link>https://soapbox.systems/blog/2015/08/26/lib-tech.html</link>
-        <guid isPermaLink="true">https://soapbox.systems/blog/2015/08/26/lib-tech.html</guid>
+        <link>https://soapbox.systems/blog/2015/08/26/journalism-co-uk.html</link>
+        <guid isPermaLink="true">https://soapbox.systems/blog/2015/08/26/journalism-co-uk.html</guid>
         
         
         <category>blog</category>
@@ -25,8 +26,20 @@
       </item>
     
       <item>
-        <title>We Got Funding</title>
-        <description>&lt;p&gt;We are pleased to announce blah and blah.&lt;/p&gt;
+        <title>Terms of our Present Work</title>
+        <description>&lt;p&gt;In the spirit of openness and collaboration Soapbox we are disclosing the full terms
+of &lt;a href=&quot;http://knightfoundation.org/grants/201551198/&quot;&gt;our grant&lt;/a&gt; with the Knight Foundation to the public. If in a line item interests 
+you, feel free to reach out to us online or Nick specifically via email. 
+We have set aside some money for supporting 
+work on each item, we might be able to pay you for work that you want to do! 
+Especially if you can do it better than us. Exciting stuff. &lt;/p&gt;
+
+&lt;p&gt;Anyway, here are the relevant bits verbatim from our agreement with Knight.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/res/knight/activities.png&quot; alt=&quot;Grant Activities&quot; /&gt;
+&lt;img src=&quot;/res/knight/outcomes.png&quot; alt=&quot;Grant Outcomes&quot; /&gt;
+&lt;img src=&quot;/res/knight/evals.png&quot; alt=&quot;Grant Evaluations&quot; /&gt;&lt;/p&gt;
+
 </description>
         <pubDate>Tue, 25 Aug 2015 17:00:00 -0400</pubDate>
         <link>https://soapbox.systems/announce/2015/08/25/funded.html</link>

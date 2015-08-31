@@ -1,7 +1,21 @@
 ---
 layout: post
-title: "We Got Funding"
+title: "Terms of our Present Work"
 date: 2015-08-25 17:00:000
 category: announce
+author: Nick
 ---
-We are pleased to announce blah and blah.
+In the spirit of openness and collaboration Soapbox we are disclosing the full terms
+of [our grant][grant] with the Knight Foundation to the public. If in a line item interests 
+you, feel free to reach out to us online or Nick specifically via email. 
+We have set aside some money for supporting 
+work on each item, we might be able to pay you for work that you want to do! 
+Especially if you can do it better than us. Exciting stuff. 
+
+Anyway, here are the relevant bits verbatim from our agreement with Knight.
+
+![Grant Activities](/res/knight/activities.png)
+![Grant Outcomes](/res/knight/outcomes.png)
+![Grant Evaluations](/res/knight/evals.png)
+
+[grant]: http://knightfoundation.org/grants/201551198/

@@ -90,7 +90,6 @@
 .site-footer {
     border-top: 1px solid $grey-color-light;
     padding: $spacing-unit 0;
-    border-bottom: 5px solid #424242;
 }
 
 .footer-heading {
@@ -229,5 +228,9 @@
         @include media-query($on-laptop) {
             font-size: 18px;
         }
+    }
+
+    img {
+        border: solid 1px #888;
     }
 }

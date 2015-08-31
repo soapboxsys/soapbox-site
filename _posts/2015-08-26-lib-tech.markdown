@@ -1,8 +1,0 @@
----
-layout: post
-title: "Talking with Lib Tech"
-date: 2015-08-26 17:00:000
-category: blog
----
-Yesterday I emailed Liberation tech, and all I got was this blog post.
-
