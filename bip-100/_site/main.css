@@ -1,0 +1,170 @@
+#content {
+    width: 800px;
+    margin: 0 auto;
+    font-family: arial;
+}
+
+h2.title {
+    display: inline-block;
+}
+
+div.attrib {
+    float: right;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    margin-top: 17px;
+}
+
+div.attrib:hover {
+    background-color: #eee; 
+}
+
+.attrib img {
+    width: 100px;
+    height: auto;
+    padding: 7px 10px 3px 10px;
+}
+
+
+.axis text {
+    font: 10px sans-serif;
+  }
+
+  .axis path,
+  .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+}
+
+text.title {
+    font-weight: bold;
+}
+
+text.label {
+    fill: #444;
+    font-size: 12px;
+}
+
+
+line.threshold {
+    stroke: #000;
+    stroke-width: 1;
+}
+
+line.decision {
+    stroke: red;
+    strok-width: 2;
+}
+
+rect:hover {
+    opacity: 0.8;
+}
+
+path {
+    stroke: #000;
+    stroke-width: 1.25;
+    fill: none;
+}
+
+#viz {
+    margin-top: 20px;
+}
+
+table.summary {
+    display: inline-block;
+    width: 300px;
+    height: 200px;
+    float: right;
+}
+
+
+table.summary .tbody,
+table.summary .thead {
+    width: 100%;
+}
+table.summary thead td {
+    font-weight: bold;
+}
+
+table.summary td.percent,
+table.summary td.amnt {
+    width: 75px;
+    text-align: right;
+}
+
+table.summary td.label {
+    width: 120px;
+}
+table.summary td.color {
+    width: 20px;
+}
+
+tr:nth-last-child(3) td {
+    border-bottom: solid 1px black;
+}
+tr:nth-last-child(3) td.color {
+    border-bottom: none;
+}
+
+button {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px
+}
+
+button.success {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+    width: 100px;
+}
+button.start {
+    margin-right: 20px;
+}
+
+button.success:hover {
+    color: #fff;
+    background-color: #449d44;
+    border-color: #398439;
+}
+
+div.actions {
+    margin-top: 30px;
+    margin-left: 20px;
+}
+
+div.actions .status {
+    border-radius: 4px;
+    background-color: #eee;
+    border: 1px solid #ddd;
+    display: inline-block;
+    margin: 8px 0 0 20px;
+    padding: 7px 7px;
+}
+
+div.actions .status.done {
+    background-color: #4285F4;
+    color: white;
+}
+
+#fold {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}

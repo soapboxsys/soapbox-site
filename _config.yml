@@ -6,6 +6,10 @@ description: > # this means to ignore newlines until "url:"
 url: "https://soapbox.systems" 
 twitter_username: boxsoapbot
 github_username:  soapboxsys
+navigation: 
+    - text: bip-100
+    - url: /bip-100/
+
 
 # Build settings
 markdown: kramdown

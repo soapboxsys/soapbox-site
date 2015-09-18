@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" href="main.css" />
+    </head>
+    <body>
+        <div id="content">
+            <h2 class="title">BIP-100 Vote Simulator</h2>
+            <a href="http://soapbox.systems">
+                <div class="attrib">
+                    <img src="soapbox-logo.png"/>
+                </div>
+            </a>
+            <p>In spite of commenting on the block size debate, here is a widget that 
+            simulates behavoirs of miners voting for their preferences. There are
+            three AI's encoded within each of whom has different goals. 
+            The simulation produces some interesting results, but you should draw your 
+            own conclusions.
+            <hr>
+            <div id="viz">
+            </div>
+            <div class="actions">
+                <button class="success start">Start</button>
+                <button class="success">Clear</button>
+                <div class="status">The day is: 10/10/2015</div>
+            </div>
+
+            <hr id="fold">
+            <h2>Constraints</h2>
+
+            <h4>12,000 blocks are not generated at regular intervals.</h4>
+            <p>
+            This simulator picks a point in time in the future when voting ends. 
+            The actual algorithm just counts the last 12,000 blocks from the last block size adjustment.
+            </p>
+            <h4>Generation of blocks is a random process.</h4>
+            <p>That is to say that every miner has their hashpower percentage chance of generating 
+            any given block. This is not really true in the wild thanks to things like <a href="">block withholding</a>.
+            </p>
+            <h4>Miners use a single strategy.</h4>
+            <p>This is a nessecary evil if we are going to try and simulate behavoir.</p>
+            <h4>The simulation approximates those strategies.</h4>
+            <p>This is a big assumption and is probably not true.</p>
+        </div>
+
+        <script charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+        <script src="graphs.js"></script>
+        <script src="driver.js"></script>
+        <script src="models.js"></script>
+        <script src="genJson.js"></script>
+        <script>
+            var inject = buildDataSet();
+            var proposalColor = propCon(inject.counts);
+
+            pane = d3.select("#viz");
+            var sim = initializeSim(pane, new Date());
+            sim();
+
+            //d3.json("/counts.json", function(data) {
+            //});
+            //data = inject;
+            //console.log(data)
+        </script>
+    </body>
+</html>
