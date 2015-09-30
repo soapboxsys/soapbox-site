@@ -6,9 +6,204 @@
 </description>
     <link>https://soapbox.systems/</link>
     <atom:link href="https://soapbox.systems/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 18 Sep 2015 15:14:27 -0400</pubDate>
-    <lastBuildDate>Fri, 18 Sep 2015 15:14:27 -0400</lastBuildDate>
+    <pubDate>Wed, 30 Sep 2015 15:23:02 -0400</pubDate>
+    <lastBuildDate>Wed, 30 Sep 2015 15:23:02 -0400</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>An Auditable API</title>
+        <description>&lt;h2 id=&quot;an-auditable-public-api&quot;&gt;An Auditable Public API&lt;/h2&gt;
+
+&lt;h1 id=&quot;overview&quot;&gt;Overview&lt;/h1&gt;
+&lt;p&gt;The goal of this document is to describe the auditing process and the relevant aspects of a system that verifies that a web server is faithfully serving public statements included in a block chain. 
+The reference implementation along with demonstrative test cases of the API are available &lt;a href=&quot;https://github.com/soapboxsys/ombudslib&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The goal of providing public auditing is to give clients that consume a third party’s block chain data some autonomny in judging the trustworthyness of that third party. 
+The tangible goal is to remove some of the attacks a malicious API server can mount against a client.
+While not providing anonymity, this extension lets clients prove to themselves and others that the API server is not manipulating data.&lt;/p&gt;
+
+&lt;h1 id=&quot;status-of-this-document&quot;&gt;Status of This Document&lt;/h1&gt;
+&lt;p&gt;This is the initial discussion of a design that is subject to change. 
+While this is not an RFC, the intention behind this document is to describe the extension completely so that it is reproducible and well understood.&lt;/p&gt;
+
+&lt;p&gt;Nick – September 2015&lt;/p&gt;
+
+&lt;h1 id=&quot;contents&quot;&gt;Contents&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;Definitions&lt;/li&gt;
+  &lt;li&gt;Requirements
+    &lt;ol&gt;
+      &lt;li&gt;Server Descriptions&lt;/li&gt;
+      &lt;li&gt;Client Descriptions&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Signatures&lt;/li&gt;
+  &lt;li&gt;Inclusion Proofs&lt;/li&gt;
+  &lt;li&gt;Managing Certificates&lt;/li&gt;
+  &lt;li&gt;Disclaimer&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;definitions&quot;&gt;Definitions&lt;/h3&gt;
+
+&lt;p&gt;Throughout this document the term &lt;code&gt;record&lt;/code&gt; is used regularly. 
+A record defined here is a single public statement that has been included in the block chain.
+As of September 2015, the Ombuds protocol defines two types of records: bulletins and endorsements.
+The schemas of these records and their encodings can be found &lt;a href=&quot;https://github.com/soapboxsys/ombudslib&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;requirements&quot;&gt;Requirements&lt;/h3&gt;
+&lt;p&gt;A simple read-only HTTP JSON API server produces responses that contain data to clients that request it.
+In this traditional setup, the client is dependent on the server honestly sending data.
+If the server operator has malicous intent, he can manipulate existing data, withhold data, or fake the existence of data.
+To prevent these things from occuring on servers running Ombud’s API, it is nessecary to require two things of API servers and four things of API clients.&lt;/p&gt;
+
+&lt;h4 id=&quot;api-servers-must&quot;&gt;API Servers MUST:&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;Provide signed responses to all requests.&lt;/li&gt;
+  &lt;li&gt;Provide proofs of inclusion for all atomic records in its database.&lt;/li&gt;
+  &lt;li&gt;Respond on a best effort basis to all requests from API clients.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;api-clients-must&quot;&gt;API Clients MUST:&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;Select unpredictable challenges.&lt;/li&gt;
+  &lt;li&gt;Regularly audit the API server.&lt;/li&gt;
+  &lt;li&gt;Publish failed audits to peers.&lt;/li&gt;
+  &lt;li&gt;Stop using the API server if it misbehaves or fails an audit.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;If an API server and a group of Ombuds clients obey these requirements, then the clients can collectively rely on a single API server to faithfully provide them with accurate information. 
+So long as the Ombuds clients can communicate amongst each other they will be able to adapt to a changing landscape of third parties of unknown reliablity.&lt;/p&gt;
+
+&lt;p&gt;In brief, the audit process works as follows: &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;An API client connects to the server and starts requesting records. &lt;/li&gt;
+  &lt;li&gt;The client randomly selects a set of individual requesets and records from the session.&lt;/li&gt;
+  &lt;li&gt;The client then checks the proofs of inclusion for each record it selected. 
+    &lt;ul&gt;
+      &lt;li&gt;If any of the proofs fails, it publishes enough information to its peers to reproduce the failure and it stops trusting the server.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;If the client recieves a failed audit from a peer, it stops trusting the server.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Thus, with many active auditors the likelihood that a server can falsify or manipulate any record becomes extremely low.&lt;/p&gt;
+
+&lt;h4 id=&quot;server-requirements-descriptions&quot;&gt;Server Requirements Descriptions&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;
+1. Provide signed responses to all requests.
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;It is nessecary to sign every request from the server for the same reason https only works for a site if all traffic to the site is forced into https.
+An attacker can selectively manipulate unsigned responses to specific API clients while those clients would not be able to discredit the API server.&lt;/p&gt;
+
+&lt;p&gt;The format of the signatures used is discussed in Section 6: &lt;a href=&quot;#Signatures&quot;&gt;Signatures&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+2. Provide proofs of inclusion for all atomic records in its database.
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The server must provide the merkle path or an equivalent for each record it returns. 
+This lets a client verify that any record requested is unmodified and placed within the block chain.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+3. Respond on a best effort basis to all requests from API clients.
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;A malicious server could selectively respond to requests and simply return HTTP errors for things it does not want a client to view.
+This means that an honest server must stay available and attempt to respond to every client request it gets.&lt;/p&gt;
+
+&lt;p&gt;Special care must be taken to balance DOS mitigation and valid challenges as an attacker could requests proofs only to discard them
+in an attempt to waste server resources. &lt;/p&gt;
+
+&lt;h4 id=&quot;client-requirements-descriptions&quot;&gt;Client Requirements Descriptions&lt;/h4&gt;
+&lt;p&gt;&lt;code&gt;
+1. Select unpredictable challenges.
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;If a malicious API server can predict the records the client is going to audit then it can lie through omission easily.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+2. Regularly audit the API server.
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;If a client does not check the proofs the server is delivering then there is no point in sending them.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+3. Publish failed audits to peers.
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This scheme relies on a sort of herd immunity to prevent anyone client from being lied to. 
+If a client does not communicate or cannot communicate a failed proof to its peers then the entire herd is at risk.
+Thus, it is imperative that peers remain in constant communication and they actively and quickly inform each other of malacious servers.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+4. Stop using the API server if it misbehaves or fails an audit.
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;To function properly, clients should have next to no forgiveness for unresponsive API servers.
+They should have &lt;strong&gt;no&lt;/strong&gt; trust in a server that fails an audit.&lt;/p&gt;
+
+&lt;h3 id=&quot;signatures&quot;&gt;Signatures&lt;/h3&gt;
+
+&lt;p&gt;This scheme requires API servers sign all of their json responses according to the JWS standard described in &lt;a href=&quot;&quot;&gt;RFC 3035&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;MORE&lt;/p&gt;
+
+&lt;p&gt;MORE&lt;/p&gt;
+
+&lt;h3 id=&quot;inclusion-proofs&quot;&gt;Inclusion proofs&lt;/h3&gt;
+
+&lt;p&gt;Each individual record can be provably demonstrated to be unchanged and included within the block chain.
+An inclusion proof for our purposes is a merkle path that demonstrates that the record is included within the merkle root of a block that is in the block chain.&lt;/p&gt;
+
+&lt;p&gt;MORE&lt;/p&gt;
+
+&lt;p&gt;MORE&lt;/p&gt;
+
+&lt;h3 id=&quot;managing-certificates&quot;&gt;Managing Certificates&lt;/h3&gt;
+
+&lt;p&gt;While we are hesitant to make any reccomendations for or against a specific public key infrastructure.
+The reference implementation will be using the standard &lt;a href=&quot;&quot;&gt;RFC TLS PKI&lt;/a&gt; where trusted root certificates are bundled with the application.&lt;/p&gt;
+
+&lt;p&gt;LESS&lt;/p&gt;
+
+&lt;p&gt;We do not have a novel solution for bootstrapping trust into this system and neither should you.&lt;/p&gt;
+
+&lt;p&gt;MORE &lt;/p&gt;
+
+&lt;p&gt;MORE&lt;/p&gt;
+
+&lt;h3 id=&quot;disclaimers&quot;&gt;Disclaimers&lt;/h3&gt;
+
+&lt;p&gt;We are not cryptographers, but we believe we can construct secure systems.
+That being said, it is important to dispell incorrect ideas about what this design makes possible.
+This is not a complete list.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+An API server only needs a few clients to audit it.
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The rate of challenges an API server must recieve is proportional to the size of the record. 
+If the API server receives too few challenges then it can probabilistically get away with falsifying and omitting records.
+Thus, if the size of the record grows so too must the number of auditors challenging the server.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+API clients only need to check the proofs of records they are interested in.
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;It is possible and very likely that API servers will lie through omission, if they do not recieve enough random requests.
+This is because a client cannot prove a record was left out of a response unless it has evidence of that record existing.&lt;/p&gt;
+</description>
+        <pubDate>Wed, 30 Sep 2015 08:00:00 -0400</pubDate>
+        <link>https://soapbox.systems/blog/2015/09/30/audit-api.html</link>
+        <guid isPermaLink="true">https://soapbox.systems/blog/2015/09/30/audit-api.html</guid>
+        
+        
+        <category>blog</category>
+        
+      </item>
     
       <item>
         <title>Some Press in Britain</title>

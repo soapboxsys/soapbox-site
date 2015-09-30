@@ -1,0 +1,186 @@
+---
+layout: post
+title: "An Auditable API"
+date: 2015-09-30 12:00:00
+category: blog
+author: Nick
+---
+
+An Auditable Public API
+-----------------------
+
+Overview
+========
+The goal of this document is to describe the auditing process and the relevant aspects of a system that verifies that a web server is faithfully serving public statements included in a block chain. 
+The reference implementation along with demonstrative test cases of the API are available [here](https://github.com/soapboxsys/ombudslib).
+
+
+The goal of providing public auditing is to give clients that consume a third party's block chain data some autonomny in judging the trustworthyness of that third party. 
+The tangible goal is to remove some of the attacks a malicious API server can mount against a client.
+While not providing anonymity, this extension lets clients prove to themselves and others that the API server is not manipulating data.
+
+Status of This Document
+=======================
+This is the initial discussion of a design that is subject to change. 
+While this is not an RFC, the intention behind this document is to describe the extension completely so that it is reproducible and well understood.
+
+Nick -- September 2015
+
+Contents
+========
+1. Definitions
+2. Requirements
+    2. Server Descriptions
+    2. Client Descriptions
+4. Signatures
+6. Inclusion Proofs
+7. Managing Certificates
+5. Disclaimer
+
+### Definitions
+
+Throughout this document the term `record` is used regularly. 
+A record defined here is a single public statement that has been included in the block chain.
+As of September 2015, the Ombuds protocol defines two types of records: bulletins and endorsements.
+The schemas of these records and their encodings can be found [here](https://github.com/soapboxsys/ombudslib).
+
+
+### Requirements
+A simple read-only HTTP JSON API server produces responses that contain data to clients that request it.
+In this traditional setup, the client is dependent on the server honestly sending data.
+If the server operator has malicous intent, he can manipulate existing data, withhold data, or fake the existence of data.
+To prevent these things from occuring on servers running Ombud's API, it is nessecary to require two things of API servers and four things of API clients.
+
+#### API Servers MUST:
+1. Provide signed responses to all requests.
+2. Provide proofs of inclusion for all atomic records in its database.
+3. Respond on a best effort basis to all requests from API clients.
+
+#### API Clients MUST:
+1. Select unpredictable challenges.
+2. Regularly audit the API server.
+3. Publish failed audits to peers.
+4. Stop using the API server if it misbehaves or fails an audit.
+
+If an API server and a group of Ombuds clients obey these requirements, then the clients can collectively rely on a single API server to faithfully provide them with accurate information. 
+So long as the Ombuds clients can communicate amongst each other they will be able to adapt to a changing landscape of third parties of unknown reliablity.
+
+In brief, the audit process works as follows: 
+
+- An API client connects to the server and starts requesting records. 
+- The client randomly selects a set of individual requesets and records from the session.
+- The client then checks the proofs of inclusion for each record it selected. 
+    - If any of the proofs fails, it publishes enough information to its peers to reproduce the failure and it stops trusting the server.
+- If the client recieves a failed audit from a peer, it stops trusting the server.
+
+Thus, with many active auditors the likelihood that a server can falsify or manipulate any record becomes extremely low.
+
+#### Server Requirements Descriptions
+
+```
+1. Provide signed responses to all requests.
+```
+
+It is nessecary to sign every request from the server for the same reason https only works for a site if all traffic to the site is forced into https.
+An attacker can selectively manipulate unsigned responses to specific API clients while those clients would not be able to discredit the API server.
+
+The format of the signatures used is discussed in Section 6: [Signatures](#Signatures).
+
+```
+2. Provide proofs of inclusion for all atomic records in its database.
+```
+
+The server must provide the merkle path or an equivalent for each record it returns. 
+This lets a client verify that any record requested is unmodified and placed within the block chain.
+
+
+```
+3. Respond on a best effort basis to all requests from API clients.
+```
+
+A malicious server could selectively respond to requests and simply return HTTP errors for things it does not want a client to view.
+This means that an honest server must stay available and attempt to respond to every client request it gets.
+
+Special care must be taken to balance DOS mitigation and valid challenges as an attacker could requests proofs only to discard them
+in an attempt to waste server resources. 
+
+#### Client Requirements Descriptions
+```
+1. Select unpredictable challenges.
+```
+
+If a malicious API server can predict the records the client is going to audit then it can lie through omission easily.
+
+```
+2. Regularly audit the API server.
+```
+
+If a client does not check the proofs the server is delivering then there is no point in sending them.
+
+```
+3. Publish failed audits to peers.
+```
+
+This scheme relies on a sort of herd immunity to prevent anyone client from being lied to. 
+If a client does not communicate or cannot communicate a failed proof to its peers then the entire herd is at risk.
+Thus, it is imperative that peers remain in constant communication and they actively and quickly inform each other of malacious servers.
+
+
+```
+4. Stop using the API server if it misbehaves or fails an audit.
+```
+
+To function properly, clients should have next to no forgiveness for unresponsive API servers.
+They should have __no__ trust in a server that fails an audit.
+
+### Signatures
+
+This scheme requires API servers sign all of their json responses according to the JWS standard described in [RFC 3035]().
+
+MORE
+
+MORE
+
+### Inclusion proofs
+
+Each individual record can be provably demonstrated to be unchanged and included within the block chain.
+An inclusion proof for our purposes is a merkle path that demonstrates that the record is included within the merkle root of a block that is in the block chain.
+
+MORE
+
+MORE
+
+### Managing Certificates
+
+While we are hesitant to make any reccomendations for or against a specific public key infrastructure.
+The reference implementation will be using the standard [RFC TLS PKI]() where trusted root certificates are bundled with the application.
+
+LESS
+
+We do not have a novel solution for bootstrapping trust into this system and neither should you.
+
+MORE 
+
+MORE
+
+
+### Disclaimers
+
+We are not cryptographers, but we believe we can construct secure systems.
+That being said, it is important to dispell incorrect ideas about what this design makes possible.
+This is not a complete list.
+
+```
+An API server only needs a few clients to audit it.
+```
+
+The rate of challenges an API server must recieve is proportional to the size of the record. 
+If the API server receives too few challenges then it can probabilistically get away with falsifying and omitting records.
+Thus, if the size of the record grows so too must the number of auditors challenging the server.
+
+```
+API clients only need to check the proofs of records they are interested in.
+```
+
+It is possible and very likely that API servers will lie through omission, if they do not recieve enough random requests.
+This is because a client cannot prove a record was left out of a response unless it has evidence of that record existing.
