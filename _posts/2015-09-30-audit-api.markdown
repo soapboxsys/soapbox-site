@@ -68,7 +68,7 @@ So long as the Ombuds clients can communicate amongst each other they will be ab
 In brief, the audit process works as follows: 
 
 - An API client connects to the server and starts requesting records. 
-- The client randomly selects a set of individual requesets and records from the session.
+- The client randomly selects a set of individual requests and records from the session.
 - The client then checks the proofs of inclusion for each record it selected. 
     - If any of the proofs fails, it publishes enough information to its peers to reproduce the failure and it stops trusting the server.
 - If the client recieves a failed audit from a peer, it stops trusting the server.
