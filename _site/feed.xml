@@ -6,8 +6,8 @@
 </description>
     <link>https://soapbox.systems/</link>
     <atom:link href="https://soapbox.systems/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 30 Sep 2015 15:23:02 -0400</pubDate>
-    <lastBuildDate>Wed, 30 Sep 2015 15:23:02 -0400</lastBuildDate>
+    <pubDate>Wed, 30 Sep 2015 16:01:11 -0400</pubDate>
+    <lastBuildDate>Wed, 30 Sep 2015 16:01:11 -0400</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -147,7 +147,7 @@ They should have &lt;strong&gt;no&lt;/strong&gt; trust in a server that fails an
 
 &lt;h3 id=&quot;signatures&quot;&gt;Signatures&lt;/h3&gt;
 
-&lt;p&gt;This scheme requires API servers sign all of their json responses according to the JWS standard described in &lt;a href=&quot;&quot;&gt;RFC 3035&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This scheme requires API servers sign all of their json responses according to the JWS standard described in &lt;a href=&quot;https://tools.ietf.org/html/rfc7515&quot;&gt;RFC 7515&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;MORE&lt;/p&gt;
 
@@ -165,7 +165,7 @@ An inclusion proof for our purposes is a merkle path that demonstrates that the 
 &lt;h3 id=&quot;managing-certificates&quot;&gt;Managing Certificates&lt;/h3&gt;
 
 &lt;p&gt;While we are hesitant to make any reccomendations for or against a specific public key infrastructure.
-The reference implementation will be using the standard &lt;a href=&quot;&quot;&gt;RFC TLS PKI&lt;/a&gt; where trusted root certificates are bundled with the application.&lt;/p&gt;
+The reference implementation will be using the standard defined in &lt;a href=&quot;https://tools.ietf.org/html/rfc5280&quot;&gt;RFC 5280&lt;/a&gt; where trusted root certificates are bundled with the application.&lt;/p&gt;
 
 &lt;p&gt;LESS&lt;/p&gt;
 

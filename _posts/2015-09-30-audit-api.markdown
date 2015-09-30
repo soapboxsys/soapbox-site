@@ -30,12 +30,12 @@ Contents
 ========
 1. Definitions
 2. Requirements
-    2. Server Descriptions
+    1. Server Descriptions
     2. Client Descriptions
-4. Signatures
-6. Inclusion Proofs
-7. Managing Certificates
-5. Disclaimer
+3. Signatures
+4. Inclusion Proofs
+5. Managing Certificates
+6. Disclaimer
 
 ### Definitions
 
@@ -135,7 +135,7 @@ They should have __no__ trust in a server that fails an audit.
 
 ### Signatures
 
-This scheme requires API servers sign all of their json responses according to the JWS standard described in [RFC 3035]().
+This scheme requires API servers sign all of their json responses according to the JWS standard described in [RFC 7515](https://tools.ietf.org/html/rfc7515).
 
 MORE
 
@@ -153,7 +153,7 @@ MORE
 ### Managing Certificates
 
 While we are hesitant to make any reccomendations for or against a specific public key infrastructure.
-The reference implementation will be using the standard [RFC TLS PKI]() where trusted root certificates are bundled with the application.
+The reference implementation will be using the standard defined in [RFC 5280](https://tools.ietf.org/html/rfc5280) where trusted root certificates are bundled with the application.
 
 LESS
 
