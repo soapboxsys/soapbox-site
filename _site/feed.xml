@@ -6,9 +6,235 @@
 </description>
     <link>https://soapbox.systems/</link>
     <atom:link href="https://soapbox.systems/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 30 Sep 2015 16:18:35 -0400</pubDate>
-    <lastBuildDate>Wed, 30 Sep 2015 16:18:35 -0400</lastBuildDate>
+    <pubDate>Mon, 05 Oct 2015 16:16:48 -0400</pubDate>
+    <lastBuildDate>Mon, 05 Oct 2015 16:16:48 -0400</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Design Document 03</title>
+        <description>&lt;h2 id=&quot;endorsement-specification&quot;&gt;Endorsement Specification&lt;/h2&gt;
+
+&lt;h1 id=&quot;overview&quot;&gt;Overview&lt;/h1&gt;
+&lt;p&gt;An endorsement is a type of message that can be encododed in a Bitcoin transaction.
+The goal of an endorsement is to provide a low cost, permanent way for organizations and individuals to publicly signal to the network that bulletin satisfies their criterea for endorsement. 
+By providing an open mechanism for people to express approval of specific bulletins, more meaningful interactions can occur through Ombuds.&lt;/p&gt;
+
+&lt;p&gt;An example of this would be auditing a system that produces backups of politically sensitive tweets.
+Multiple third parties could automatically validate that a tweet was accurately stored in the public record as a bulletin and endorse that bulletin.
+This would provide a strong layer of audits that established that a tweet was created on Twitter at some point in the past.&lt;/p&gt;
+
+&lt;p&gt;Another use case is the aggregation of quality sources and material by news agencies interested in collecting digital ground truth.&lt;/p&gt;
+
+&lt;p&gt;What an endorsement really means is defined by the creator of the endorsement. 
+Webster’s dictionary defines three uses of the term ‘endorsement’. &lt;/p&gt;
+
+&lt;dl&gt;
+  &lt;dt&gt;```&lt;/dt&gt;
+  &lt;dt&gt;endorsment (noun)&lt;/dt&gt;
+  &lt;dd&gt;a public or official statement of support or approval&lt;/dd&gt;
+  &lt;dd&gt;
+    &lt;p&gt;the act of publicly saying that you like or use a product or service in exchange for money&lt;/p&gt;
+  &lt;/dd&gt;
+  &lt;dd&gt;
+    &lt;p&gt;the act or result of writing your name on the back of a check
+```&lt;/p&gt;
+  &lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;p&gt;All three or none of the definitions can apply to an endoresment stored in the public record.&lt;/p&gt;
+
+&lt;h1 id=&quot;contents&quot;&gt;Contents&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;Specification&lt;/li&gt;
+  &lt;li&gt;Public Record Schema&lt;/li&gt;
+  &lt;li&gt;JSON Schema&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h1 id=&quot;specification&quot;&gt;Specification&lt;/h1&gt;
+
+&lt;p&gt;An endorsement is defined as a Bitcoin transaction which contains the following protocol buffer in a data carrying output.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+message endorsment {
+    required bytes txid         = 1; // A 32 byte SHA hash
+    required int64 timestamp    = 2; // Seconds since 00:00:00 Jan 1, 1970
+}
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;This buffer is encoded according to version 1.5.1 of Google’s protocol buffer specification.
+It is prefixed with the 4 byte indicator that informs parsers that the following message is a Ombuds data-type.
+An example of the total payload encoded in hex follows this format:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+                      head |        protocol buffer   |
+    payload byte[] := 0xBEEF843F6724A347297987CD232304D
+                             |        txid          | ts 
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;An endorsement can either be encoded in transactions in several ways.
+Parsers will look in the valid encoding formats as described in &lt;a href=&quot;/DD1&quot;&gt;section 2.7.3 data encoding formats of DD01&lt;/a&gt;.
+Since endorsements are less than 40 bytes in size, the reference implementation will place endorsements in OP_RETURN outputs.&lt;/p&gt;
+
+&lt;h1 id=&quot;public-record-schema&quot;&gt;Public Record Schema&lt;/h1&gt;
+
+&lt;p&gt;An endorsement will be stored in the public record alongside bulletins by full nodes maintaining copies of the public record.
+The SQL schema is the same as the protocol buffer format except for one notable addition.
+An author field is included which is the Bitcoin address of the transactions first signing input as described in &lt;a href=&quot;/DD01&quot;&gt;section 1.4 author key formats of DD01&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+CREATE TABLE endorsements (
+    txid        TEXT, -- the enclosing transactions SHA hash
+    bid         TEXT, -- the endorsed bulletins SHA hash
+    timestamp   INT,  -- Unix time
+    author      TEXT, -- formatted as a bitcoin address.
+
+    FORIEGN KEY(bid) REFERENCES bulletins(txid),
+    PRIMARY KEY(txid)
+);
+&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/soapboxsys/ombudslib/blob/master/protocol/schema.sql&quot;&gt;Source&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;json-schema&quot;&gt;JSON Schema&lt;/h1&gt;
+
+&lt;p&gt;The JSON schema of an endorsement follows the same conventions laid out by the JSON format for bulletins.
+An example endorsement returned by a JSON API looks like this.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+{
+    txid:      &quot;c9be2cbeb2da2dfe1f0158246938a3899f4e5c5108ea54e75c7c4f22580e42bc&quot;,
+    bid:       &quot;17756d6259242add26f728b8feb8f4b83a8c5af39d923b65f5ab6c0b27223d14&quot;,
+    author:    &quot;mkzkHkLn1Q5fRuNh2wbg3V7BjX4cKXQHYE&quot;,
+    timestamp: 1444074578
+}
+&lt;/code&gt;&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 05 Oct 2015 12:00:00 -0400</pubDate>
+        <link>https://soapbox.systems/blog/2015/10/05/endorsement-spec.html</link>
+        <guid isPermaLink="true">https://soapbox.systems/blog/2015/10/05/endorsement-spec.html</guid>
+        
+        
+        <category>blog</category>
+        
+      </item>
+    
+      <item>
+        <title>API Design Overview</title>
+        <description>&lt;h2 id=&quot;api-design-description&quot;&gt;API Design Description&lt;/h2&gt;
+
+&lt;h1 id=&quot;overview&quot;&gt;Overview&lt;/h1&gt;
+&lt;p&gt;The goal of this document is to describe the intention behind and the details of a JSON API that exposes the public record over HTTP.
+This document will cover the specific requirements of an open-source API that serves public statements stored in Bitcoin’s block chain.
+How this software is intended to be used and how it must function is covered within.&lt;/p&gt;
+
+&lt;h1 id=&quot;status-of-this-document&quot;&gt;Status of This Document&lt;/h1&gt;
+&lt;p&gt;This is a draft design that is subject to change. Further documentation of the API methods themselves can be found in the source code &lt;a href=&quot;https://github.com/soapboxsys/ombudslib&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Nick – October 2015&lt;/p&gt;
+
+&lt;h1 id=&quot;contents&quot;&gt;Contents&lt;/h1&gt;
+&lt;ol&gt;
+  &lt;li&gt;Definitions&lt;/li&gt;
+  &lt;li&gt;Introduction&lt;/li&gt;
+  &lt;li&gt;Requirements Overview&lt;/li&gt;
+  &lt;li&gt;Available Records&lt;/li&gt;
+  &lt;li&gt;Physical Infrastructure 
+  3.1 Minimum Requirements
+  3.2 Deployment Process&lt;/li&gt;
+  &lt;li&gt;Authenticating the Server&lt;/li&gt;
+  &lt;li&gt;Protecting Users
+  5.1 Server Logging
+  5.2 TOR hidden services&lt;/li&gt;
+  &lt;li&gt;DOS Resistance Tradeoffs&lt;/li&gt;
+  &lt;li&gt;Release Process and Updates&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;definitions&quot;&gt;Definitions&lt;/h2&gt;
+
+&lt;p&gt;Throughout this document the pronoun “we” is occasionally used. “We” in this context means Alex Kuck and Nick Skelsey.&lt;/p&gt;
+
+&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;The API discussed here is the interface that mobile application and web based users of Ombuds will rely on for information stored in the public record.
+While it is clear that operator’s of APIs and web servers can act maliciously, for the sake of usability and scalability we have decided to build a centralized piece of core infrastructure. &lt;/p&gt;
+
+&lt;p&gt;The goal here is to produce a compact and performant JSON API that is easy for many organizations and individuals to deploy. 
+That being said, the first organization to deploy it will be Soapbox Systems.
+Due to size of Bitcoin’s block chain we cannot expect new participants in this system to fully join the Bitcoin network, just to have access to Ombuds.
+To make our system more accessible, clients that cannot or would rather not bear the cost of deploying and maintaining there own network infrastructure can instead trust a third party to serve them relevant application data.&lt;/p&gt;
+
+&lt;p&gt;It is important to note, that the API discussed below is READ only. The only interactions with the system that are conducted through the API is the retireval of records stored in the public record. 
+An SSV client can always verify that the statement is unmoddified and actually included in the record. 
+However, an SSV client can not be sure of whether or not statements have been excluded from the record.
+This problem along with methods to address it is discussed further in &lt;a href=&quot;/An-Auditable-API&quot;&gt;DD02&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;requirements-overview&quot;&gt;Requirements Overview&lt;/h2&gt;
+&lt;p&gt;In general the goal of this server application is that it runs on modern enterprise grade servers.
+To that end it must support thousands of simulataneous clients while remaining:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Secure&lt;/li&gt;
+  &lt;li&gt;Available&lt;/li&gt;
+  &lt;li&gt;Performant&lt;/li&gt;
+  &lt;li&gt;Auditable&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;code&gt;0. Secure&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Clearly, the API code must not introduce any remote code execution vulnerabilities or unintentional leaks of user or operator information.
+The API server must also be resitant to DOS attacks, both from malicious peers on the Bitcoin network and SSV clients.
+Finally, updates to API servers must be cryptographically authenticated.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Available Records&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The API will serve three fundamental things: bulletins, endorsements and inclusion proofs.
+It will also serve aggregated lists of these things. 
+While the exact schema and available routes of theses requests is descibed elsewhere this section describes &lt;/p&gt;
+
+&lt;p&gt;The schema of bulletins is described in appendix A of this &lt;a href=&quot;https://getombuds.org/research&quot;&gt;paper&lt;/a&gt;.
+The JSON format of endorsements is described in section 2.2 of &lt;a href=&quot;/DD2&quot;&gt;DD2&lt;/a&gt;.
+The JSON format of inclusion proofs is described in &lt;a href=&quot;/DD3&quot;&gt;DD3&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;3.1 Aggregates&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;The API
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;physical-infrastructure&quot;&gt;5 Physical Infrastructure&lt;/h2&gt;
+
+&lt;p&gt;A properly functioning API server will have to run two binaries: ombfullnode and ombwebapi.
+&lt;code&gt;ombfullnode&lt;/code&gt; is a modified full node implementation of Bitcoin, while &lt;code&gt;ombwebapi&lt;/code&gt; serves the JSON API over https. 
+This means that a single server must meet the minimum requirements to run a Bitcoin full node &lt;em&gt;and&lt;/em&gt; fulfill requests from SSV nodes.&lt;/p&gt;
+
+&lt;h2 id=&quot;minimum-requirements&quot;&gt;5.1 Minimum Requirements&lt;/h2&gt;
+&lt;p&gt;Be aware that this is not the recommended setup and it makes more sense to use two different machines. 
+This way one machine can communicate solely with the Bitcoin network and build the public record and the other machine can respond to SSV nodes.
+In any configuration of servers though, the requirements stated above still apply.&lt;/p&gt;
+
+&lt;h2 id=&quot;deployment-process&quot;&gt;5.2 Deployment Process&lt;/h2&gt;
+
+&lt;p&gt;There are two ways to set up a deployment of an API server. 
+The first only requires the application binaries and a connection to the Bitcoin network.
+This requires a full download and validation of the bitcoin block chain and the construction of a public record from it.&lt;/p&gt;
+
+&lt;p&gt;The second method relies on a trusted checkpoint or a friends application data to supply the initial block chain and public record.
+While we don’t endorse this method of setting up an API.
+We will be distributing a bootstrap file for Bitcoin’s Testnet, so that folks can test their deployments of the server API before running the real thing.
+That bundle of bootstrap data will be released with new versions of the software.
+The process is decribed further in &lt;a href=&quot;&quot;&gt;section 7.2&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 02 Oct 2015 08:00:00 -0400</pubDate>
+        <link>https://soapbox.systems/blog/2015/10/02/api-design.html</link>
+        <guid isPermaLink="true">https://soapbox.systems/blog/2015/10/02/api-design.html</guid>
+        
+        
+        <category>blog</category>
+        
+      </item>
     
       <item>
         <title>An Auditable API</title>
@@ -147,39 +373,100 @@ They should have &lt;strong&gt;no&lt;/strong&gt; trust in a server that fails an
 
 &lt;h3 id=&quot;signatures&quot;&gt;Signatures&lt;/h3&gt;
 
-&lt;p&gt;This scheme requires API servers sign all of their json responses according to the JWS standard described in &lt;a href=&quot;https://tools.ietf.org/html/rfc7515&quot;&gt;RFC 7515&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This scheme requires API servers sign all of their json responses according to the JWS standard described in &lt;a href=&quot;https://tools.ietf.org/html/rfc7515&quot;&gt;RFC 7515&lt;/a&gt;.
+This requires wrapping the JSON responses specified in &lt;a href=&quot;&quot;&gt;section 7.3 of DD01&lt;/a&gt; with the required JWS fields.&lt;/p&gt;
 
-&lt;p&gt;MORE&lt;/p&gt;
+&lt;p&gt;Each JSON response returned by the server MUST include a JWS message signature.&lt;/p&gt;
 
-&lt;p&gt;MORE&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;
+{
+    &quot;payload&quot;: {
+        author: &quot;3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy&quot;,
+        message: &quot;I cant be undecided all of the time.&quot;,
+        timestamp: 13040032,
+        lat: 37043930,
+        lon: 42093296
+    }
+    &quot;signature&quot;:&quot;&amp;lt;signature N contents&amp;gt;&quot;}
+}
+&lt;/code&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;inclusion-proofs&quot;&gt;Inclusion proofs&lt;/h3&gt;
+&lt;p&gt;The deployment of JWS here will only include the use of these protected headers.
+Special care must be given to prevent the introduction of timing side-channel attacks.&lt;/p&gt;
+
+&lt;h3 id=&quot;inclusion-proofs&quot;&gt;Inclusion Proofs&lt;/h3&gt;
 
 &lt;p&gt;Each individual record can be provably demonstrated to be unchanged and included within the block chain.
-An inclusion proof for our purposes is a merkle path that demonstrates that the record is included within the merkle root of a block that is in the block chain.&lt;/p&gt;
+Every record is contained within a Bitcoin transaction that has a unique hash based on double sha256, which is called the transaction id or ‘txid’ for short.&lt;/p&gt;
 
-&lt;p&gt;MORE&lt;/p&gt;
+&lt;p&gt;An inclusion proof is a merkle audit path that demonstrates that the txid of the record is included within the merkle root of a block in the block chain.&lt;/p&gt;
 
-&lt;p&gt;MORE&lt;/p&gt;
+&lt;h4 id=&quot;constructing-a-proof&quot;&gt;Constructing a Proof&lt;/h4&gt;
 
-&lt;h3 id=&quot;managing-certificates&quot;&gt;Managing Certificates&lt;/h3&gt;
+&lt;p&gt;The exact format of the leaves and branch digests needed to construct the path is as follows:
+From &lt;a href=&quot;https://tools.ietf.org/html/rfc6962#section-2.1.1&quot;&gt;RFC 6962 section 2.1.1&lt;/a&gt; and &lt;a href=&quot;https://en.bitcoin.it/wiki/Dump_format#CBlock&quot;&gt;bitcoin docs&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;While we are hesitant to make any reccomendations for or against a specific public key infrastructure.
-The reference implementation will be using the standard defined in &lt;a href=&quot;https://tools.ietf.org/html/rfc5280&quot;&gt;RFC 5280&lt;/a&gt; where trusted root certificates are bundled with the application.&lt;/p&gt;
+&lt;pre&gt;
+Given an ordered list of n inputs to the tree, D[n] = {d(0), ...,
+d(n-1)}, the Merkle audit path PATH(m, D[n]) for the (m+1)th input
+d(m), 0 &amp;lt;= m &amp;lt; n, is defined as follows:
 
-&lt;p&gt;LESS&lt;/p&gt;
+The path for the single leaf in a tree with a one-element input list
+D[1] = {d(0)} is empty:
 
-&lt;p&gt;We do not have a novel solution for bootstrapping trust into this system and neither should you.&lt;/p&gt;
+PATH(0, {d(0)}) = {}
 
-&lt;p&gt;MORE &lt;/p&gt;
+For n &amp;gt; 1, let k be the largest power of two smaller than n.  The
+path for the (m+1)th element d(m) in a list of n &amp;gt; m elements is then
+defined recursively as
 
-&lt;p&gt;MORE&lt;/p&gt;
+PATH(m, D[n]) = PATH(m, D[0:k]) : MTH(D[k:n]) for m &amp;lt; k; and
+
+PATH(m, D[n]) = PATH(m - k, D[k:n]) : MTH(D[0:k]) for m &amp;gt;= k,
+
+where : is concatenation of lists and D[k1:k2] denotes the length
+(k2 - k1) list {d(k1), d(k1+1),..., d(k2-1)} as before.
+&lt;/pre&gt;
+
+&lt;p&gt;The nessecary fields are then included in an individual transactions response as follows. 
+The required JWS attributes are omitted from the example for clarity. &lt;/p&gt;
+
+&lt;p&gt;```
+{
+    typical bulletin fields…  &lt;br /&gt;
+    “message”: “Save our ship!”
+    “txid”: “”&lt;/p&gt;
+
+&lt;p&gt;}
+```&lt;/p&gt;
+
+&lt;h4 id=&quot;validating-a-proof&quot;&gt;Validating a Proof&lt;/h4&gt;
+
+&lt;p&gt;After recieving a signed JSON response, an API client must check the JWS signature inline with JWS spec.&lt;/p&gt;
+
+&lt;p&gt;Run this alg:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+check_proof (resp)
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;managing-keys&quot;&gt;Managing Keys&lt;/h3&gt;
+
+&lt;p&gt;The reference implementation will be using the standard defined in &lt;a href=&quot;https://tools.ietf.org/html/rfc6125&quot;&gt;RFC 6125&lt;/a&gt; where trusted signing keys are bundled in the client application and the user has the ability to import new ones and discard malicious keys.&lt;/p&gt;
+
+&lt;p&gt;The application will not trust a devices standard trusted certifcates and instead rely on the user explicitly importing new trusted keys.&lt;/p&gt;
 
 &lt;h3 id=&quot;disclaimers&quot;&gt;Disclaimers&lt;/h3&gt;
-
-&lt;p&gt;We are not cryptographers, but we believe we can construct secure systems.
-That being said, it is important to dispell incorrect ideas about what this design makes possible.
+&lt;p&gt;It is important to dispell incorrect ideas about what this design makes possible.
 This is not a complete list.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+An API server cannot omit public records 
+&lt;/code&gt;
+Detecting the exclusion of records is much harder then the manipulation of a regular.
+With a record and a proof of inclusion, a client can quickly determine if the record is accurate and included within the public record.
+If a malacious API omits a record, it will only appear as a signed response where the requested record does not exist or was omitted from an aggreagated response.
+An SSV client running validation checks will not detect that it has been lied to.&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;
 An API server only needs a few clients to audit it.

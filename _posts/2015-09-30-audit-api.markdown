@@ -136,39 +136,103 @@ They should have __no__ trust in a server that fails an audit.
 ### Signatures
 
 This scheme requires API servers sign all of their json responses according to the JWS standard described in [RFC 7515](https://tools.ietf.org/html/rfc7515).
+This requires wrapping the JSON responses specified in [section 7.3 of DD01]() with the required JWS fields.
 
-MORE
+Each JSON response returned by the server MUST include a JWS message signature.
 
-MORE
+```
+{
+    "payload": {
+        author: "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy",
+        message: "I cant be undecided all of the time.",
+        timestamp: 13040032,
+        lat: 37043930,
+        lon: 42093296
+    }
+    "signature":"<signature N contents>"}
+}
+```
 
-### Inclusion proofs
+The deployment of JWS here will only include the use of these protected headers.
+Special care must be given to prevent the introduction of timing side-channel attacks.
+
+### Inclusion Proofs
 
 Each individual record can be provably demonstrated to be unchanged and included within the block chain.
-An inclusion proof for our purposes is a merkle path that demonstrates that the record is included within the merkle root of a block that is in the block chain.
+Every record is contained within a Bitcoin transaction that has a unique hash based on double sha256, which is called the transaction id or 'txid' for short.
 
-MORE
+An inclusion proof is a merkle audit path that demonstrates that the txid of the record is included within the merkle root of a block in the block chain.
 
-MORE
+#### Constructing a Proof
 
-### Managing Certificates
+The exact format of the leaves and branch digests needed to construct the path is as follows:
+From [RFC 6962 section 2.1.1](https://tools.ietf.org/html/rfc6962#section-2.1.1) and [bitcoin docs](https://en.bitcoin.it/wiki/Dump_format#CBlock)
 
-While we are hesitant to make any reccomendations for or against a specific public key infrastructure.
-The reference implementation will be using the standard defined in [RFC 5280](https://tools.ietf.org/html/rfc5280) where trusted root certificates are bundled with the application.
 
-LESS
+<pre>
+Given an ordered list of n inputs to the tree, D[n] = {d(0), ...,
+d(n-1)}, the Merkle audit path PATH(m, D[n]) for the (m+1)th input
+d(m), 0 <= m < n, is defined as follows:
 
-We do not have a novel solution for bootstrapping trust into this system and neither should you.
+The path for the single leaf in a tree with a one-element input list
+D[1] = {d(0)} is empty:
 
-MORE 
+PATH(0, {d(0)}) = {}
 
-MORE
+For n > 1, let k be the largest power of two smaller than n.  The
+path for the (m+1)th element d(m) in a list of n > m elements is then
+defined recursively as
 
+PATH(m, D[n]) = PATH(m, D[0:k]) : MTH(D[k:n]) for m < k; and
+
+PATH(m, D[n]) = PATH(m - k, D[k:n]) : MTH(D[0:k]) for m >= k,
+
+where : is concatenation of lists and D[k1:k2] denotes the length
+(k2 - k1) list {d(k1), d(k1+1),..., d(k2-1)} as before.
+</pre>
+
+The nessecary fields are then included in an individual transactions response as follows. 
+The required JWS attributes are omitted from the example for clarity. 
+
+
+```
+{
+    typical bulletin fields...    
+    "message": "Save our ship!"
+    "txid": ""
+
+}
+```
+
+#### Validating a Proof
+
+After recieving a signed JSON response, an API client must check the JWS signature inline with JWS spec.
+
+Run this alg:
+
+<code>
+check_proof (resp)
+</code>
+
+
+### Managing Keys
+
+The reference implementation will be using the standard defined in [RFC 6125](https://tools.ietf.org/html/rfc6125) where trusted signing keys are bundled in the client application and the user has the ability to import new ones and discard malicious keys.
+
+The application will not trust a devices standard trusted certifcates and instead rely on the user explicitly importing new trusted keys.
 
 ### Disclaimers
-
-We are not cryptographers, but we believe we can construct secure systems.
-That being said, it is important to dispell incorrect ideas about what this design makes possible.
+It is important to dispell incorrect ideas about what this design makes possible.
 This is not a complete list.
+
+```
+An API server cannot omit public records 
+```
+Detecting the exclusion of records is much harder then the manipulation of a regular.
+With a record and a proof of inclusion, a client can quickly determine if the record is accurate and included within the public record.
+If a malacious API omits a record, it will only appear as a signed response where the requested record does not exist or was omitted from an aggreagated response.
+An SSV client running validation checks will not detect that it has been lied to.
+
 
 ```
 An API server only needs a few clients to audit it.
