@@ -12,12 +12,12 @@ An Auditable Public API
 Overview
 ========
 The goal of this document is to describe the auditing process and the relevant aspects of a system that verifies that a web server is faithfully serving public statements included in a block chain. 
-The reference implementation along with demonstrative test cases of the API are available [here](https://github.com/soapboxsys/ombudslib).
+The reference implementation along with demonstrative test cases of the API are available <s>[here](https://github.com/soapboxsys/ombudslib)</s>.
 
 
 The goal of providing public auditing is to give clients that consume a third party's block chain data some autonomny in judging the trustworthyness of that third party. 
 The tangible goal is to remove some of the attacks a malicious API server can mount against a client.
-While not providing anonymity, this extension lets clients prove to themselves and others that the API server is not manipulating data.
+While not providing anonymity, this extension lets clients prove to themselves and others that the API server is not manipulating records.
 
 Status of This Document
 =======================
@@ -70,8 +70,8 @@ In brief, the audit process works as follows:
 - An API client connects to the server and starts requesting records. 
 - The client randomly selects a set of individual requests and records from the session.
 - The client then checks the proofs of inclusion for each record it selected. 
-    - If any of the proofs fails, it publishes enough information to its peers to reproduce the failure and it stops trusting the server.
-- If the client recieves a failed audit from a peer, it stops trusting the server.
+    - If any of the proof fails in any way, the client publishes evidence of the failure to its peers and it stops trusting the server.
+- If a client recieves a failed audit from a peer, it stops trusting the server.
 
 Thus, with many active auditors the likelihood that a server can falsify or manipulate any record becomes extremely low.
 
@@ -140,21 +140,29 @@ This requires wrapping the JSON responses specified in [section 7.3 of DD01]() w
 
 Each JSON response returned by the server MUST include a JWS message signature.
 
-```
+~~~
 {
     "payload": {
+        // A standard bulletin
         author: "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy",
         message: "I cant be undecided all of the time.",
         timestamp: 13040032,
         lat: 37043930,
         lon: 42093296
-    }
-    "signature":"<signature N contents>"}
+    },
+
+    "protected": { 
+        // JOSE Headers
+        "x5t#S256": "34ed032...", 
+        "alg": "HS512"
+    },
+    "signature": "<signature N contents>"
 }
-```
+~~~
 
 The deployment of JWS here will only include the use of these protected headers.
-Special care must be given to prevent the introduction of timing side-channel attacks.
+Special care must be taken to prevent the introduction of timing side-channel attacks.
+
 
 ### Inclusion Proofs
 
@@ -163,57 +171,27 @@ Every record is contained within a Bitcoin transaction that has a unique hash ba
 
 An inclusion proof is a merkle audit path that demonstrates that the txid of the record is included within the merkle root of a block in the block chain.
 
-#### Constructing a Proof
+#### Constructing and Validating a Proof
 
-The exact format of the leaves and branch digests needed to construct the path is as follows:
-From [RFC 6962 section 2.1.1](https://tools.ietf.org/html/rfc6962#section-2.1.1) and [bitcoin docs](https://en.bitcoin.it/wiki/Dump_format#CBlock)
-
-
-<pre>
-Given an ordered list of n inputs to the tree, D[n] = {d(0), ...,
-d(n-1)}, the Merkle audit path PATH(m, D[n]) for the (m+1)th input
-d(m), 0 <= m < n, is defined as follows:
-
-The path for the single leaf in a tree with a one-element input list
-D[1] = {d(0)} is empty:
-
-PATH(0, {d(0)}) = {}
-
-For n > 1, let k be the largest power of two smaller than n.  The
-path for the (m+1)th element d(m) in a list of n > m elements is then
-defined recursively as
-
-PATH(m, D[n]) = PATH(m, D[0:k]) : MTH(D[k:n]) for m < k; and
-
-PATH(m, D[n]) = PATH(m - k, D[k:n]) : MTH(D[0:k]) for m >= k,
-
-where : is concatenation of lists and D[k1:k2] denotes the length
-(k2 - k1) list {d(k1), d(k1+1),..., d(k2-1)} as before.
-</pre>
+The exact format of the leaves and branch digests needed to construct the path is specified in [BIP 37](https://github.com/bitcoin/bips/blob/master/bip-0037.mediawiki#partial-merkle-branch-format).
 
 The nessecary fields are then included in an individual transactions response as follows. 
 The required JWS attributes are omitted from the example for clarity. 
 
-
-```
+~~~
 {
-    typical bulletin fields...    
-    "message": "Save our ship!"
-    "txid": ""
+    // typical bulletin fields...    
+    "message": "Save our ship!",
+    "txid": "25179a7ba575e9bc1c2a35c2ed63f91c4c6feca6a69ab8d1602a59b3b2c7f1db",
+    "timestamp": 1439057344,
+    "blkHeight": 576535,
 
+
+    // Needed for audit
+    "blk": "0000000000000a3614515c3fbb4a7b9a69cb15d74501154d44133d40e8be5d1d",
+    "inc-proof": { branches: ["d334" "eda4" "3f92"] "flags": 100000 }
 }
-```
-
-#### Validating a Proof
-
-After recieving a signed JSON response, an API client must check the JWS signature inline with JWS spec.
-
-Run this alg:
-
-<code>
-check_proof (resp)
-</code>
-
+~~~
 
 ### Managing Keys
 
@@ -228,11 +206,11 @@ This is not a complete list.
 ```
 An API server cannot omit public records 
 ```
+
 Detecting the exclusion of records is much harder then the manipulation of a regular.
 With a record and a proof of inclusion, a client can quickly determine if the record is accurate and included within the public record.
 If a malacious API omits a record, it will only appear as a signed response where the requested record does not exist or was omitted from an aggreagated response.
 An SSV client running validation checks will not detect that it has been lied to.
-
 
 ```
 An API server only needs a few clients to audit it.

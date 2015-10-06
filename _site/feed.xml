@@ -6,8 +6,8 @@
 </description>
     <link>https://soapbox.systems/</link>
     <atom:link href="https://soapbox.systems/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 05 Oct 2015 16:16:48 -0400</pubDate>
-    <lastBuildDate>Mon, 05 Oct 2015 16:16:48 -0400</lastBuildDate>
+    <pubDate>Tue, 06 Oct 2015 10:38:02 -0400</pubDate>
+    <lastBuildDate>Tue, 06 Oct 2015 10:38:02 -0400</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -26,22 +26,17 @@ This would provide a strong layer of audits that established that a tweet was cr
 &lt;p&gt;Another use case is the aggregation of quality sources and material by news agencies interested in collecting digital ground truth.&lt;/p&gt;
 
 &lt;p&gt;What an endorsement really means is defined by the creator of the endorsement. 
-Webster’s dictionary defines three uses of the term ‘endorsement’. &lt;/p&gt;
+Webster’s dictionary gives us three definitions of the word ‘endorsement’. &lt;/p&gt;
 
-&lt;dl&gt;
-  &lt;dt&gt;```&lt;/dt&gt;
-  &lt;dt&gt;endorsment (noun)&lt;/dt&gt;
-  &lt;dd&gt;a public or official statement of support or approval&lt;/dd&gt;
-  &lt;dd&gt;
-    &lt;p&gt;the act of publicly saying that you like or use a product or service in exchange for money&lt;/p&gt;
-  &lt;/dd&gt;
-  &lt;dd&gt;
-    &lt;p&gt;the act or result of writing your name on the back of a check
-```&lt;/p&gt;
-  &lt;/dd&gt;
-&lt;/dl&gt;
+&lt;pre&gt;&lt;code&gt;Endorsment (noun)
+: a public or official statement of support or approval
 
-&lt;p&gt;All three or none of the definitions can apply to an endoresment stored in the public record.&lt;/p&gt;
+: the act of publicly saying that you like or use a product or service in exchange for money
+
+: the act or result of writing your name on the back of a check
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All of the definitions or none of them can apply to an endoresment stored in the public record.&lt;/p&gt;
 
 &lt;h1 id=&quot;contents&quot;&gt;Contents&lt;/h1&gt;
 &lt;ol&gt;
@@ -54,22 +49,20 @@ Webster’s dictionary defines three uses of the term ‘endorsement’. &lt;/p&
 
 &lt;p&gt;An endorsement is defined as a Bitcoin transaction which contains the following protocol buffer in a data carrying output.&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;
-message endorsment {
+&lt;pre&gt;&lt;code&gt;message endorsment {
     required bytes txid         = 1; // A 32 byte SHA hash
     required int64 timestamp    = 2; // Seconds since 00:00:00 Jan 1, 1970
 }
-&lt;/code&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;This buffer is encoded according to version 1.5.1 of Google’s protocol buffer specification.
 It is prefixed with the 4 byte indicator that informs parsers that the following message is a Ombuds data-type.
 An example of the total payload encoded in hex follows this format:&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;
-                      head |        protocol buffer   |
+&lt;pre&gt;&lt;code&gt;                      head |        protocol buffer   |
     payload byte[] := 0xBEEF843F6724A347297987CD232304D
                              |        txid          | ts 
-&lt;/code&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;An endorsement can either be encoded in transactions in several ways.
 Parsers will look in the valid encoding formats as described in &lt;a href=&quot;/DD1&quot;&gt;section 2.7.3 data encoding formats of DD01&lt;/a&gt;.
@@ -81,8 +74,7 @@ Since endorsements are less than 40 bytes in size, the reference implementation 
 The SQL schema is the same as the protocol buffer format except for one notable addition.
 An author field is included which is the Bitcoin address of the transactions first signing input as described in &lt;a href=&quot;/DD01&quot;&gt;section 1.4 author key formats of DD01&lt;/a&gt;&lt;/p&gt;
 
-&lt;pre&gt;
-CREATE TABLE endorsements (
+&lt;pre&gt;&lt;code&gt;CREATE TABLE endorsements (
     txid        TEXT, -- the enclosing transactions SHA hash
     bid         TEXT, -- the endorsed bulletins SHA hash
     timestamp   INT,  -- Unix time
@@ -91,7 +83,7 @@ CREATE TABLE endorsements (
     FORIEGN KEY(bid) REFERENCES bulletins(txid),
     PRIMARY KEY(txid)
 );
-&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/soapboxsys/ombudslib/blob/master/protocol/schema.sql&quot;&gt;Source&lt;/a&gt;&lt;/p&gt;
 
@@ -100,14 +92,13 @@ CREATE TABLE endorsements (
 &lt;p&gt;The JSON schema of an endorsement follows the same conventions laid out by the JSON format for bulletins.
 An example endorsement returned by a JSON API looks like this.&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;
-{
+&lt;pre&gt;&lt;code&gt;{
     txid:      &quot;c9be2cbeb2da2dfe1f0158246938a3899f4e5c5108ea54e75c7c4f22580e42bc&quot;,
     bid:       &quot;17756d6259242add26f728b8feb8f4b83a8c5af39d923b65f5ab6c0b27223d14&quot;,
     author:    &quot;mkzkHkLn1Q5fRuNh2wbg3V7BjX4cKXQHYE&quot;,
     timestamp: 1444074578
 }
-&lt;/code&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 </description>
         <pubDate>Mon, 05 Oct 2015 12:00:00 -0400</pubDate>
@@ -242,11 +233,11 @@ The process is decribed further in &lt;a href=&quot;&quot;&gt;section 7.2&lt;/a&
 
 &lt;h1 id=&quot;overview&quot;&gt;Overview&lt;/h1&gt;
 &lt;p&gt;The goal of this document is to describe the auditing process and the relevant aspects of a system that verifies that a web server is faithfully serving public statements included in a block chain. 
-The reference implementation along with demonstrative test cases of the API are available &lt;a href=&quot;https://github.com/soapboxsys/ombudslib&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+The reference implementation along with demonstrative test cases of the API are available &lt;s&gt;[here](https://github.com/soapboxsys/ombudslib)&lt;/s&gt;.&lt;/p&gt;
 
 &lt;p&gt;The goal of providing public auditing is to give clients that consume a third party’s block chain data some autonomny in judging the trustworthyness of that third party. 
 The tangible goal is to remove some of the attacks a malicious API server can mount against a client.
-While not providing anonymity, this extension lets clients prove to themselves and others that the API server is not manipulating data.&lt;/p&gt;
+While not providing anonymity, this extension lets clients prove to themselves and others that the API server is not manipulating records.&lt;/p&gt;
 
 &lt;h1 id=&quot;status-of-this-document&quot;&gt;Status of This Document&lt;/h1&gt;
 &lt;p&gt;This is the initial discussion of a design that is subject to change. 
@@ -304,13 +295,13 @@ So long as the Ombuds clients can communicate amongst each other they will be ab
 
 &lt;ul&gt;
   &lt;li&gt;An API client connects to the server and starts requesting records. &lt;/li&gt;
-  &lt;li&gt;The client randomly selects a set of individual requesets and records from the session.&lt;/li&gt;
+  &lt;li&gt;The client randomly selects a set of individual requests and records from the session.&lt;/li&gt;
   &lt;li&gt;The client then checks the proofs of inclusion for each record it selected. 
     &lt;ul&gt;
-      &lt;li&gt;If any of the proofs fails, it publishes enough information to its peers to reproduce the failure and it stops trusting the server.&lt;/li&gt;
+      &lt;li&gt;If any of the proof fails in any way, the client publishes evidence of the failure to its peers and it stops trusting the server.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;If the client recieves a failed audit from a peer, it stops trusting the server.&lt;/li&gt;
+  &lt;li&gt;If a client recieves a failed audit from a peer, it stops trusting the server.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Thus, with many active auditors the likelihood that a server can falsify or manipulate any record becomes extremely low.&lt;/p&gt;
@@ -378,21 +369,27 @@ This requires wrapping the JSON responses specified in &lt;a href=&quot;&quot;&g
 
 &lt;p&gt;Each JSON response returned by the server MUST include a JWS message signature.&lt;/p&gt;
 
-&lt;p&gt;&lt;code&gt;
-{
+&lt;pre&gt;&lt;code&gt;{
     &quot;payload&quot;: {
+        // A standard bulletin
         author: &quot;3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy&quot;,
         message: &quot;I cant be undecided all of the time.&quot;,
         timestamp: 13040032,
         lat: 37043930,
         lon: 42093296
-    }
-    &quot;signature&quot;:&quot;&amp;lt;signature N contents&amp;gt;&quot;}
+    },
+
+    &quot;protected&quot;: { 
+        // JOSE Headers
+        &quot;x5t#S256&quot;: &quot;34ed032...&quot;, 
+        &quot;alg&quot;: &quot;HS512&quot;
+    },
+    &quot;signature&quot;: &quot;&amp;lt;signature N contents&amp;gt;&quot;
 }
-&lt;/code&gt;&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;The deployment of JWS here will only include the use of these protected headers.
-Special care must be given to prevent the introduction of timing side-channel attacks.&lt;/p&gt;
+Special care must be taken to prevent the introduction of timing side-channel attacks.&lt;/p&gt;
 
 &lt;h3 id=&quot;inclusion-proofs&quot;&gt;Inclusion Proofs&lt;/h3&gt;
 
@@ -401,54 +398,26 @@ Every record is contained within a Bitcoin transaction that has a unique hash ba
 
 &lt;p&gt;An inclusion proof is a merkle audit path that demonstrates that the txid of the record is included within the merkle root of a block in the block chain.&lt;/p&gt;
 
-&lt;h4 id=&quot;constructing-a-proof&quot;&gt;Constructing a Proof&lt;/h4&gt;
+&lt;h4 id=&quot;constructing-and-validating-a-proof&quot;&gt;Constructing and Validating a Proof&lt;/h4&gt;
 
-&lt;p&gt;The exact format of the leaves and branch digests needed to construct the path is as follows:
-From &lt;a href=&quot;https://tools.ietf.org/html/rfc6962#section-2.1.1&quot;&gt;RFC 6962 section 2.1.1&lt;/a&gt; and &lt;a href=&quot;https://en.bitcoin.it/wiki/Dump_format#CBlock&quot;&gt;bitcoin docs&lt;/a&gt;&lt;/p&gt;
-
-&lt;pre&gt;
-Given an ordered list of n inputs to the tree, D[n] = {d(0), ...,
-d(n-1)}, the Merkle audit path PATH(m, D[n]) for the (m+1)th input
-d(m), 0 &amp;lt;= m &amp;lt; n, is defined as follows:
-
-The path for the single leaf in a tree with a one-element input list
-D[1] = {d(0)} is empty:
-
-PATH(0, {d(0)}) = {}
-
-For n &amp;gt; 1, let k be the largest power of two smaller than n.  The
-path for the (m+1)th element d(m) in a list of n &amp;gt; m elements is then
-defined recursively as
-
-PATH(m, D[n]) = PATH(m, D[0:k]) : MTH(D[k:n]) for m &amp;lt; k; and
-
-PATH(m, D[n]) = PATH(m - k, D[k:n]) : MTH(D[0:k]) for m &amp;gt;= k,
-
-where : is concatenation of lists and D[k1:k2] denotes the length
-(k2 - k1) list {d(k1), d(k1+1),..., d(k2-1)} as before.
-&lt;/pre&gt;
+&lt;p&gt;The exact format of the leaves and branch digests needed to construct the path is specified in &lt;a href=&quot;https://github.com/bitcoin/bips/blob/master/bip-0037.mediawiki#partial-merkle-branch-format&quot;&gt;BIP 37&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;The nessecary fields are then included in an individual transactions response as follows. 
 The required JWS attributes are omitted from the example for clarity. &lt;/p&gt;
 
-&lt;p&gt;```
-{
-    typical bulletin fields…  &lt;br /&gt;
-    “message”: “Save our ship!”
-    “txid”: “”&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+    // typical bulletin fields...    
+    &quot;message&quot;: &quot;Save our ship!&quot;,
+    &quot;txid&quot;: &quot;25179a7ba575e9bc1c2a35c2ed63f91c4c6feca6a69ab8d1602a59b3b2c7f1db&quot;,
+    &quot;timestamp&quot;: 1439057344,
+    &quot;blkHeight&quot;: 576535,
 
-&lt;p&gt;}
-```&lt;/p&gt;
 
-&lt;h4 id=&quot;validating-a-proof&quot;&gt;Validating a Proof&lt;/h4&gt;
-
-&lt;p&gt;After recieving a signed JSON response, an API client must check the JWS signature inline with JWS spec.&lt;/p&gt;
-
-&lt;p&gt;Run this alg:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-check_proof (resp)
-&lt;/code&gt;&lt;/p&gt;
+    // Needed for audit
+    &quot;blk&quot;: &quot;0000000000000a3614515c3fbb4a7b9a69cb15d74501154d44133d40e8be5d1d&quot;,
+    &quot;inc-proof&quot;: { branches: [&quot;d334&quot; &quot;eda4&quot; &quot;3f92&quot;] &quot;flags&quot;: 100000 }
+}
+&lt;/code&gt;&lt;/pre&gt;
 
 &lt;h3 id=&quot;managing-keys&quot;&gt;Managing Keys&lt;/h3&gt;
 
@@ -462,8 +431,9 @@ This is not a complete list.&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;
 An API server cannot omit public records 
-&lt;/code&gt;
-Detecting the exclusion of records is much harder then the manipulation of a regular.
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Detecting the exclusion of records is much harder then the manipulation of a regular.
 With a record and a proof of inclusion, a client can quickly determine if the record is accurate and included within the public record.
 If a malacious API omits a record, it will only appear as a signed response where the requested record does not exist or was omitted from an aggreagated response.
 An SSV client running validation checks will not detect that it has been lied to.&lt;/p&gt;
