@@ -8,7 +8,7 @@ author: Nick
 
 We put out a call for a developer that reads something like this:
 
-    Soapbox Systems is a software development group started by two UVA and HC alums based in Washington DC. We are looking for a front-end developer with design skills or a designer with web-development skills to build and design a front-end for Ombuds. 
+    Soapbox Systems is a software development group started by two UVA and HC alums based in Washington DC. We are looking for a front-end developer with design skills or a designer with strong web development skills to build and design a front-end for Ombuds. 
      
     If you or somebody you know is interested in working with a rag-tag group of miscreants producing copy-left technology literally intended to resist oppression and protect human rights email me at: nick@soapbox.systems
 
