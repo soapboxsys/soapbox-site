@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Looking for a developer"
+title: "Looking for a Developer"
 date: 2015-11-16 12:00:000
 category: announce
 author: Nick
@@ -56,7 +56,7 @@ So it has everything you should need.
 We plan to use the [same repository](https://github.com/soapboxsys/ombuds-site) and simply face lift the site for the redesign.
 Additionally, the domain name getombuds.org will change -- we are not sure to what, but we are open to suggestions.
 
-For your reference here are great home pages for other top-notch open source sites.
+For your reference here are great home pages for other top-notch open source projects.
 
 * [Core OS](https://coreos.com/) -- very swanky...
 * [Debian](https://www.debian.org/) -- The right info in an old form.

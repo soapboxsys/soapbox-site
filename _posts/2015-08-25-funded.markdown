@@ -5,14 +5,14 @@ date: 2015-08-25 17:00:000
 category: announce
 author: Nick
 ---
-In the spirit of openness and collaboration Soapbox we are disclosing the full terms
-of [our grant][grant] with the Knight Foundation to the public. If in a line item interests 
+In the spirit of openness and collaboration Soapbox is disclosing the full terms
+of [our grant][grant] with the Knight Foundation to the public. If a line item interests 
 you, feel free to reach out to us online or Nick specifically via email. 
 We have set aside some money for supporting 
 work on each item, we might be able to pay you for work that you want to do! 
 Especially if you can do it better than us. Exciting stuff. 
 
-Anyway, here are the relevant bits verbatim from our agreement with Knight.
+Anyway, here are the relevant bits from our agreement with the Knight Foundation.
 
 ![Grant Activities](/res/knight/activities.png)
 ![Grant Outcomes](/res/knight/outcomes.png)

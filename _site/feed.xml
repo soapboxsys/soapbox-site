@@ -6,12 +6,12 @@
 </description>
     <link>https://soapbox.systems/</link>
     <atom:link href="https://soapbox.systems/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 16 Nov 2015 13:04:50 -0500</pubDate>
-    <lastBuildDate>Mon, 16 Nov 2015 13:04:50 -0500</lastBuildDate>
+    <pubDate>Mon, 16 Nov 2015 13:19:35 -0500</pubDate>
+    <lastBuildDate>Mon, 16 Nov 2015 13:19:35 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
-        <title>Looking for a developer</title>
+        <title>Looking for a Developer</title>
         <description>&lt;p&gt;We put out a call for a developer that reads something like this:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;Soapbox Systems is a software development group started by two UVA and HC alums based in Washington DC. We are looking for a front-end developer with design skills or a designer with web-development skills to build and design a front-end for Ombuds. 
@@ -66,7 +66,7 @@ So it has everything you should need. &lt;/p&gt;
 &lt;p&gt;We plan to use the &lt;a href=&quot;https://github.com/soapboxsys/ombuds-site&quot;&gt;same repository&lt;/a&gt; and simply face lift the site for the redesign.
 Additionally, the domain name getombuds.org will change – we are not sure to what, but we are open to suggestions.&lt;/p&gt;
 
-&lt;p&gt;For your reference here are great home pages for other top-notch open source sites.&lt;/p&gt;
+&lt;p&gt;For your reference here are great home pages for other top-notch open source projects.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://coreos.com/&quot;&gt;Core OS&lt;/a&gt; – very swanky…&lt;/li&gt;
@@ -97,6 +97,25 @@ We have documented exactly how the API functions &lt;a href=&quot;https://github
         
         
         <category>announce</category>
+        
+      </item>
+    
+      <item>
+        <title>Talking @ DC Crypto Day</title>
+        <description>&lt;p&gt;Our former advisor &lt;a href=&quot;http://www.cs.virginia.edu/~evans/&quot;&gt;Dave Evans&lt;/a&gt; invited us out to present Ombuds at the &lt;a href=&quot;https://dcareacryptoday.wordpress.com/&quot;&gt;DC Area Crypto Day&lt;/a&gt;.
+The topic of the day was Bitcoin and the whole thing was recorded by JHU staff. &lt;/p&gt;
+
+&lt;p&gt;Below is my presentation of Ombuds after Dave provided a background on Bitcoin. 
+All in all it was a great event with some really interesting people.&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/23zEa3UZ4qY?start=3185&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+</description>
+        <pubDate>Thu, 29 Oct 2015 20:00:00 -0400</pubDate>
+        <link>https://soapbox.systems/blog/2015/10/29/crypto-day.html</link>
+        <guid isPermaLink="true">https://soapbox.systems/blog/2015/10/29/crypto-day.html</guid>
+        
+        
+        <category>blog</category>
         
       </item>
     
