@@ -6,8 +6,8 @@
 </description>
     <link>https://soapbox.systems/</link>
     <atom:link href="https://soapbox.systems/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 16 Nov 2015 13:42:36 -0500</pubDate>
-    <lastBuildDate>Mon, 16 Nov 2015 13:42:36 -0500</lastBuildDate>
+    <pubDate>Mon, 16 Nov 2015 13:46:30 -0500</pubDate>
+    <lastBuildDate>Mon, 16 Nov 2015 13:46:30 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -78,7 +78,7 @@ Additionally, the domain name getombuds.org will change – we are not sure to w
 
 &lt;h1 id=&quot;constructing-a-web-front-end-for-ombuds&quot;&gt;Constructing a Web Front-end for Ombuds&lt;/h1&gt;
 
-&lt;p&gt;The Ombuds specification defines an HTTP API for records that are stored in the public record.&lt;/p&gt;
+&lt;p&gt;The Ombuds &lt;a href=&quot;https://github.com/soapboxsys/ombuds-spec/blob/master/doc/index.md&quot;&gt;specification&lt;/a&gt; defines an &lt;a href=&quot;https://github.com/soapboxsys/ombuds-spec/blob/master/doc/web-relay-api.md&quot;&gt;HTTP API&lt;/a&gt; for records that are stored in the public record.&lt;/p&gt;
 
 &lt;p&gt;These records can be displayed in several different ways to a viewer. 
 The mobile app that Alex is building will consume this API.
@@ -88,7 +88,7 @@ We would like a web-browser to also be able to consume the API.&lt;/p&gt;
 Those sites (&lt;a href=&quot;https://github.com/NSkelsey/ahimsa-web&quot;&gt;1&lt;/a&gt; and &lt;a href=&quot;https://github.com/NSkelsey/OmbudsRetweeter&quot;&gt;2&lt;/a&gt;) were either single use or now obsolete (the API has changed).&lt;/p&gt;
 
 &lt;p&gt;A fresh set of eyes and ideas will be crucial in deciding how to relay and show relevant information to users.
-We have documented exactly how the API functions &lt;a href=&quot;https://github.com/soapboxsys/ombuds-spec/blob/master/doc/web-relay-api.md&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+We have documented exactly how the API functions &lt;a href=&quot;https://github.com/soapboxsys/ombuds-spec/blob/master/doc/web-relay-api.md#5-api-routes-and-responses&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 </description>
         <pubDate>Mon, 16 Nov 2015 12:00:00 -0500</pubDate>

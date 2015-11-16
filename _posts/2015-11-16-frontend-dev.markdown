@@ -67,7 +67,7 @@ For your reference here are great home pages for other top-notch open source pro
 Constructing a Web Front-end for Ombuds
 =======================================
 
-The Ombuds specification defines an HTTP API for records that are stored in the public record.
+The Ombuds [specification] defines an [HTTP API] for records that are stored in the public record.
 
 These records can be displayed in several different ways to a viewer. 
 The mobile app that Alex is building will consume this API.
@@ -77,8 +77,10 @@ Websites that display this content on the web has been done before by Nick.
 Those sites ([1] and [2]) were either single use or now obsolete (the API has changed).
 
 A fresh set of eyes and ideas will be crucial in deciding how to relay and show relevant information to users.
-We have documented exactly how the API functions [here](https://github.com/soapboxsys/ombuds-spec/blob/master/doc/web-relay-api.md).
+We have documented exactly how the API functions [here](https://github.com/soapboxsys/ombuds-spec/blob/master/doc/web-relay-api.md#5-api-routes-and-responses).
 
+[specification]: https://github.com/soapboxsys/ombuds-spec/blob/master/doc/index.md
+[HTTP API]: https://github.com/soapboxsys/ombuds-spec/blob/master/doc/web-relay-api.md
 
 [1]: https://github.com/NSkelsey/ahimsa-web
 [2]: https://github.com/NSkelsey/OmbudsRetweeter
