@@ -206,6 +206,10 @@
 .post-content {
     margin-bottom: $spacing-unit;
 
+    pre {
+        white-space: pre-line;
+    }
+
     h2 {
         font-size: 32px;
 

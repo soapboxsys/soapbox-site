@@ -290,6 +290,8 @@ pre {
 
 .post-content {
   margin-bottom: 30px; }
+  .post-content pre {
+    white-space: pre-line; }
   .post-content h2 {
     font-size: 32px; }
     @media screen and (max-width: 800px) {

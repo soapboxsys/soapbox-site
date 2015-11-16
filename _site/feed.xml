@@ -6,9 +6,99 @@
 </description>
     <link>https://soapbox.systems/</link>
     <atom:link href="https://soapbox.systems/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 16 Nov 2015 10:55:26 -0500</pubDate>
-    <lastBuildDate>Mon, 16 Nov 2015 10:55:26 -0500</lastBuildDate>
+    <pubDate>Mon, 16 Nov 2015 13:04:50 -0500</pubDate>
+    <lastBuildDate>Mon, 16 Nov 2015 13:04:50 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Looking for a developer</title>
+        <description>&lt;p&gt;We put out a call for a developer that reads something like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Soapbox Systems is a software development group started by two UVA and HC alums based in Washington DC. We are looking for a front-end developer with design skills or a designer with web-development skills to build and design a front-end for Ombuds. 
+ 
+If you or somebody you know is interested in working with a rag-tag group of miscreants producing copy-left technology literally intended to resist oppression and protect human rights email me at: nick@soapbox.systems
+
+And yes, you can even get paid – some money – to do this! And no, we don’t mind if you are a full-time student.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The purpose of this page is to describe in detail the work we need done. &lt;/p&gt;
+
+&lt;p&gt;There are two main tasks:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Redesign getombuds.org&lt;/li&gt;
+  &lt;li&gt;Construct a web front-end for the Ombuds REST API.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;We view both of equal importance, but #2 is the harder more integrated problem. 
+So what we are doing is using #1 to see if someone can join our team to solve #2.
+If you would like to get paid to work on #1 with the potential for further work on #2 email us.
+After an initial conversation and back and forth on ideas+designs for #1, we will start paying you to build it.&lt;/p&gt;
+
+&lt;h1 id=&quot;redesigning-getombudsorg&quot;&gt;Redesigning getombuds.org&lt;/h1&gt;
+
+&lt;p&gt;This site should be the public face of a technologically sophisticated open-source project.
+&lt;a href=&quot;https://getombuds.org&quot;&gt;The current site&lt;/a&gt; does reflect that. 
+Last spring, we worked with a design company to radically improve our marketing appeal. 
+This did not work because the resulting site was low content, slow to load, and a marketing pitch. 
+It was mainly our fault.&lt;/p&gt;
+
+&lt;p&gt;So, what we are looking for now is a suitable home for the Ombuds project. 
+This includes a friendly front-page that acts as a sign post that directs the viewer: to download the software, read the documentation (and paper), learn about the people who made it and so on. &lt;/p&gt;
+
+&lt;p&gt;While the look and feel should be different, the Tor project’s &lt;a href=&quot;https://www.torproject.org/&quot;&gt;site&lt;/a&gt; provides an excellent reference.
+Be aware though, this is 2015 websites can look better than that – not that we know how to make it look better…&lt;/p&gt;
+
+&lt;p&gt;The content of the site should at the minimum contain:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A high level description of the project&lt;/li&gt;
+  &lt;li&gt;A place to post announcements, blog posts, and victories.&lt;/li&gt;
+  &lt;li&gt;The &lt;a href=&quot;https://github.com/soapboxsys/ombuds-spec/blob/master/doc/index.md&quot;&gt;spec&lt;/a&gt;, the &lt;a href=&quot;https://github.com/soapboxsys/ombuds-site/blob/master/res/ombuds-public-space.pdf&quot;&gt;paper&lt;/a&gt;, and links to other technical documentation.&lt;/li&gt;
+  &lt;li&gt;A set of pages devoted to downloading the software and warning users about its use.&lt;/li&gt;
+  &lt;li&gt;Information about the team, sponsors, partners, and funders.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The current site uses Jekyll. 
+Jekyll supports markdown, blogging, and fast static sites. 
+So it has everything you should need. &lt;/p&gt;
+
+&lt;p&gt;We plan to use the &lt;a href=&quot;https://github.com/soapboxsys/ombuds-site&quot;&gt;same repository&lt;/a&gt; and simply face lift the site for the redesign.
+Additionally, the domain name getombuds.org will change – we are not sure to what, but we are open to suggestions.&lt;/p&gt;
+
+&lt;p&gt;For your reference here are great home pages for other top-notch open source sites.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://coreos.com/&quot;&gt;Core OS&lt;/a&gt; – very swanky…&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.debian.org/&quot;&gt;Debian&lt;/a&gt; – The right info in an old form.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://golang.org/&quot;&gt;Go language&lt;/a&gt; &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://jasperproject.github.io&quot;&gt;Jasper Project&lt;/a&gt; – don’t nessecarily like the home-page&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.cyanogenmod.org/&quot;&gt;Cyanogenmod&lt;/a&gt; – The best in the list.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;constructing-a-web-front-end-for-ombuds&quot;&gt;Constructing a Web Front-end for Ombuds&lt;/h1&gt;
+
+&lt;p&gt;The Ombuds specification defines an HTTP API for records that are stored in the public record.&lt;/p&gt;
+
+&lt;p&gt;These records can be displayed in several different ways to a viewer. 
+The mobile app that Alex is building will consume this API.
+We would like a web-browser to also be able to consume the API.&lt;/p&gt;
+
+&lt;p&gt;Websites that display this content on the web has been done before by Nick.
+Those sites (&lt;a href=&quot;https://github.com/NSkelsey/ahimsa-web&quot;&gt;1&lt;/a&gt; and &lt;a href=&quot;https://github.com/NSkelsey/&quot;&gt;2&lt;/a&gt;) were either single use or now obsolete (the API has changed).&lt;/p&gt;
+
+&lt;p&gt;A fresh set of eyes and ideas will be crucial in deciding how to relay and show relevant information to users.
+We have documented exactly how the API functions &lt;a href=&quot;https://github.com/soapboxsys/ombuds-spec/blob/master/doc/web-relay-api.md&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>Mon, 16 Nov 2015 12:00:00 -0500</pubDate>
+        <link>https://soapbox.systems/announce/2015/11/16/frontend-dev.html</link>
+        <guid isPermaLink="true">https://soapbox.systems/announce/2015/11/16/frontend-dev.html</guid>
+        
+        
+        <category>announce</category>
+        
+      </item>
     
       <item>
         <title>Some Press in Britain</title>
@@ -27,14 +117,14 @@ It was an interesting conversation. Go check out the resulting &lt;a href=&quot;
     
       <item>
         <title>Terms of our Present Work</title>
-        <description>&lt;p&gt;In the spirit of openness and collaboration Soapbox we are disclosing the full terms
-of &lt;a href=&quot;http://knightfoundation.org/grants/201551198/&quot;&gt;our grant&lt;/a&gt; with the Knight Foundation to the public. If in a line item interests 
+        <description>&lt;p&gt;In the spirit of openness and collaboration Soapbox is disclosing the full terms
+of &lt;a href=&quot;http://knightfoundation.org/grants/201551198/&quot;&gt;our grant&lt;/a&gt; with the Knight Foundation to the public. If a line item interests 
 you, feel free to reach out to us online or Nick specifically via email. 
 We have set aside some money for supporting 
 work on each item, we might be able to pay you for work that you want to do! 
 Especially if you can do it better than us. Exciting stuff. &lt;/p&gt;
 
-&lt;p&gt;Anyway, here are the relevant bits verbatim from our agreement with Knight.&lt;/p&gt;
+&lt;p&gt;Anyway, here are the relevant bits from our agreement with the Knight Foundation.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/res/knight/activities.png&quot; alt=&quot;Grant Activities&quot; /&gt;
 &lt;img src=&quot;/res/knight/outcomes.png&quot; alt=&quot;Grant Outcomes&quot; /&gt;
