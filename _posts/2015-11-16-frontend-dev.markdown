@@ -81,4 +81,4 @@ We have documented exactly how the API functions [here](https://github.com/soapb
 
 
 [1]: https://github.com/NSkelsey/ahimsa-web
-[2]: https://github.com/NSkelsey/
+[2]: https://github.com/NSkelsey/OmbudsRetweeter

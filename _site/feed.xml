@@ -6,8 +6,8 @@
 </description>
     <link>https://soapbox.systems/</link>
     <atom:link href="https://soapbox.systems/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 16 Nov 2015 13:25:15 -0500</pubDate>
-    <lastBuildDate>Mon, 16 Nov 2015 13:25:15 -0500</lastBuildDate>
+    <pubDate>Mon, 16 Nov 2015 13:31:17 -0500</pubDate>
+    <lastBuildDate>Mon, 16 Nov 2015 13:31:17 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -85,7 +85,7 @@ The mobile app that Alex is building will consume this API.
 We would like a web-browser to also be able to consume the API.&lt;/p&gt;
 
 &lt;p&gt;Websites that display this content on the web has been done before by Nick.
-Those sites (&lt;a href=&quot;https://github.com/NSkelsey/ahimsa-web&quot;&gt;1&lt;/a&gt; and &lt;a href=&quot;https://github.com/NSkelsey/&quot;&gt;2&lt;/a&gt;) were either single use or now obsolete (the API has changed).&lt;/p&gt;
+Those sites (&lt;a href=&quot;https://github.com/NSkelsey/ahimsa-web&quot;&gt;1&lt;/a&gt; and &lt;a href=&quot;https://github.com/NSkelsey/OmbudsRetweeter&quot;&gt;2&lt;/a&gt;) were either single use or now obsolete (the API has changed).&lt;/p&gt;
 
 &lt;p&gt;A fresh set of eyes and ideas will be crucial in deciding how to relay and show relevant information to users.
 We have documented exactly how the API functions &lt;a href=&quot;https://github.com/soapboxsys/ombuds-spec/blob/master/doc/web-relay-api.md&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
