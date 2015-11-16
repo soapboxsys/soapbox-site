@@ -33,7 +33,7 @@ This site should be the public face of a technologically sophisticated open-sour
 [The current site](https://getombuds.org) does reflect that. 
 Last spring, we worked with a design company to radically improve our marketing appeal. 
 This did not work because the resulting site was low content, slow to load, and a marketing pitch. 
-It was mainly our fault.
+It was mainly our fault and we do not have any screen shots of the site either... 
 
 So, what we are looking for now is a suitable home for the Ombuds project. 
 This includes a friendly front-page that acts as a sign post that directs the viewer: to download the software, read the documentation (and paper), learn about the people who made it and so on. 
