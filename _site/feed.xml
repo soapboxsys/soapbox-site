@@ -6,8 +6,8 @@
 </description>
     <link>https://soapbox.systems/</link>
     <atom:link href="https://soapbox.systems/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 16 Nov 2015 13:46:30 -0500</pubDate>
-    <lastBuildDate>Mon, 16 Nov 2015 13:46:30 -0500</lastBuildDate>
+    <pubDate>Mon, 23 Nov 2015 10:30:29 -0500</pubDate>
+    <lastBuildDate>Mon, 23 Nov 2015 10:30:29 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
     
       <item>
@@ -97,6 +97,21 @@ We have documented exactly how the API functions &lt;a href=&quot;https://github
         
         
         <category>announce</category>
+        
+      </item>
+    
+      <item>
+        <title>Talking Scaling Bitcoin @ UVA</title>
+        <description>&lt;p&gt;On Nov 6, Alex and I gave a lecture about Scaling Bitcoin and Ombuds to &lt;a href=&quot;http://www.cs.virginia.edu/~evans/&quot;&gt;Dave Evans&lt;/a&gt; &lt;a href=&quot;http://bitcoin-class.org/&quot;&gt;Cryptocurrency class&lt;/a&gt; at UVA. They are an interesting bunch who had some great questions. &lt;/p&gt;
+
+&lt;p&gt;Nobody recorded it, but slides can be found &lt;img src=&quot;/res/adobepdf.png&quot; alt=&quot;pdf warning&quot; /&gt; &lt;a href=&quot;/res/Crypto-Cabal-L21.pdf&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+        <pubDate>Sun, 15 Nov 2015 20:00:00 -0500</pubDate>
+        <link>https://soapbox.systems/blog/2015/11/15/crypto-cabal.html</link>
+        <guid isPermaLink="true">https://soapbox.systems/blog/2015/11/15/crypto-cabal.html</guid>
+        
+        
+        <category>blog</category>
         
       </item>
     
