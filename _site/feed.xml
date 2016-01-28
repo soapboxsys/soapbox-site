@@ -6,9 +6,29 @@
 </description>
     <link>https://soapbox.systems/</link>
     <atom:link href="https://soapbox.systems/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 23 Nov 2015 10:30:29 -0500</pubDate>
-    <lastBuildDate>Mon, 23 Nov 2015 10:30:29 -0500</lastBuildDate>
+    <pubDate>Wed, 27 Jan 2016 22:20:49 -0500</pubDate>
+    <lastBuildDate>Wed, 27 Jan 2016 22:20:49 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Knight Foundation Demo Day</title>
+        <description>&lt;p&gt;On Jan 20, Alex and I dodged a snowstorm and travelled to Pittsburgh to attend a ideation workshop hosted by the good people at &lt;a href=&quot;https://www.luma-institute.com/&quot;&gt;LUMA&lt;/a&gt; and demo Ombuds.&lt;/p&gt;
+
+&lt;p&gt;We put an app in the &lt;a href=&quot;https://play.google.com/store/apps/details?id=systems.soapbox.ombuds.client&quot;&gt;Android app store&lt;/a&gt; for the event and we stood up a &lt;a href=&quot;https://twitter.com/boxsoapbot&quot;&gt;Testnet Retweeter&lt;/a&gt; (which broke horribly  – you can read more about it &lt;a href=&quot;https://github.com/NSkelsey/OmbudsRetweeter#ombudsretweeter&quot;&gt;here&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;All in all it was a great time with some great people. Here’s the vid:&lt;/p&gt;
+
+&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/xvCzgELX2zM&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+</description>
+        <pubDate>Fri, 22 Jan 2016 20:00:00 -0500</pubDate>
+        <link>https://soapbox.systems/blog/2016/01/22/prototype-fund.html</link>
+        <guid isPermaLink="true">https://soapbox.systems/blog/2016/01/22/prototype-fund.html</guid>
+        
+        
+        <category>blog</category>
+        
+      </item>
     
       <item>
         <title>Looking for a Developer</title>
