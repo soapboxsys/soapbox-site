@@ -6,9 +6,28 @@
 </description>
     <link>https://soapbox.systems/</link>
     <atom:link href="https://soapbox.systems/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Wed, 27 Jan 2016 22:31:41 -0500</pubDate>
-    <lastBuildDate>Wed, 27 Jan 2016 22:31:41 -0500</lastBuildDate>
+    <pubDate>Tue, 23 Feb 2016 17:10:09 -0500</pubDate>
+    <lastBuildDate>Tue, 23 Feb 2016 17:10:09 -0500</lastBuildDate>
     <generator>Jekyll v2.4.0</generator>
+    
+      <item>
+        <title>Prototype Fund Final Report</title>
+        <description>&lt;p&gt;In accordance with the requirments of our grant with the Knight Foundation, we are releasing a final report on activities conducted over the last six months.
+We do not nessecarily have to share it publicly, but we are electing too.
+This is a short work – in pdf form – that contains original research.&lt;/p&gt;
+
+&lt;div id=&quot;final-report&quot;&gt;
+&lt;a href=&quot;/res/knight-final-report.pdf&quot;&gt;&lt;img src=&quot;/res/knight-fdn-final-screen.png&quot; /&gt;&lt;/a&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Tue, 23 Feb 2016 12:00:00 -0500</pubDate>
+        <link>https://soapbox.systems/announce/2016/02/23/final-report.html</link>
+        <guid isPermaLink="true">https://soapbox.systems/announce/2016/02/23/final-report.html</guid>
+        
+        
+        <category>announce</category>
+        
+      </item>
     
       <item>
         <title>Knight Foundation Demo Day</title>

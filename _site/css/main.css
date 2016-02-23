@@ -142,6 +142,12 @@ pre {
   .icon > svg path {
     fill: #828282; }
 
+#final-report {
+  text-align: center; }
+  #final-report img {
+    margin-top: 30px;
+    width: 400px; }
+
 /**
  * Site header
  */
