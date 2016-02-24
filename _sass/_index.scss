@@ -5,8 +5,12 @@ div.why {
     border-radius: 4px;
     font-family: monospace;
     margin-bottom: 0px
-}
 
+    
+}
+div.why p {
+        margin-bottom: 5px !important;
+}
 
 .face-carousel {
     padding-top: $spacing-unit;

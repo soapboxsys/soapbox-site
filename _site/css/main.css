@@ -463,6 +463,9 @@ div.why {
   font-family: monospace;
   margin-bottom: 0px; }
 
+div.why p {
+  margin-bottom: 5px !important; }
+
 .face-carousel {
   padding-top: 30px;
   padding-bottom: 30px;
